@@ -1,16 +1,22 @@
 <template>
   <div id="nav">
     <button @click="showMyCoordinates">Where I am?</button>
-    <p v-show="coordinates.long" id="longitude">{{'Longitude: ' + coordinates.long}}</p>
-    <p v-show="coordinates.lat" id="latitude">{{'Latitude: ' + coordinates.lat}}</p>
-    <p v-show="location.city">{{'City: ' + location.city}}</p>
+    <p v-show="coordinates.long" id="longitude">
+      {{ "Longitude: " + coordinates.long }}
+    </p>
+    <p v-show="coordinates.lat" id="latitude">
+      {{ "Latitude: " + coordinates.lat }}
+    </p>
+    <p v-show="location.city">
+      {{ "You are in " + location.country + ", " + location.city }}
+    </p>
+    <img v-if="location.flag" v-bind:src="location.flag" alt="Flag" id="country-flag">
     <router-view></router-view>
   </div>
-
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -21,47 +27,53 @@ export default {
       },
       location: {
         city: "",
-      }
-    }
+        country: "",
+        flag: null,
+      },
+    };
   },
   methods: {
-    showMyCoordinates: function() {
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.coordinates.long = position.coords.longitude;
-          this.coordinates.lat = position.coords.latitude;
-        })
-      }else{
-        console.log('Geolocation is broken');
-      }
-      console.log(this.coordinates.lat +' ' +  this.coordinates.long);
-      this.getMyLocation(this.coordinates.lat, this.coordinates.long);
+    getMyPosition: function () {
+      return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
     },
-    getMyLocation: function(lat, long){
-      axios.get(`https://geocode.xyz/${lat},${long}?geoit=json`)
-            .then(res => {
-              this.location.city = res.data.city;
-            })
-            .catch(err => {
-              console.log(err);
-            })
-  
-    }
+    showMyCoordinates: function () {
+      //this function is offloaded its work to the background to the browser's web API
+      if (navigator.geolocation) {
+        this.getMyPosition()
+          .then((position) => {
+            this.coordinates.long = position.coords.longitude;
+            this.coordinates.lat = position.coords.latitude;
+            console.log("if : " + this.coordinates.lat + " " + this.coordinates.long);
+            return axios.get(`https://geocode.xyz/${this.coordinates.lat},${this.coordinates.long}?geoit=json`);
+          })
+          .then((response) => {
+            this.location.city = response.data.city;
+            this.location.country = response.data.country;
+            console.log(response);
+            return axios.get(`https://restcountries.eu/rest/v2/name/${this.location.country}`);
+          })
+          .then(response => {
+            this.location.flag = response.data[0].flag;
+          })
+          .catch((err) => console.log(err));
+      } else {
+        console.log("Geolocation API failure.");
+      }
+    },
   },
-  
-}
+};
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: center;
   color: #2c3e50;
   font-size: 20px;
@@ -79,7 +91,7 @@ export default {
     }
   }
 
-  p{
+  p {
     padding: 20px;
   }
 }
