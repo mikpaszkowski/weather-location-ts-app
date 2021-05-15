@@ -1,13 +1,15 @@
-import React from "react";
+import * as React from "react";
 import HeadlineSVG from "./iconComponents/Headline";
 import styled, { createGlobalStyle } from "styled-components";
+import SearchBar from "./components/search-bar";
+import Clock from "./components/clock";
 
 const GlobalStyle = createGlobalStyle`
     body{
     font-family: "Lato", "sans-serif";
     color: white;
     margin: 0;
-    padding: 2rem 0;
+    padding: 0;
     position: relative;
 
     &:before{
@@ -43,12 +45,30 @@ const AppWrapper = styled.div`
   position: relative;
 `;
 
+const{ useState } = React;
+
 function App() {
+
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setSearchValue(event.target.value);
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+
+
+  }
+
   return (
     <React.Fragment>
        <HeadlineSVG temporaryMode={false} staticMode={true} svgWidth="30rem" svgHeight="10rem"/>
+        <Clock/>
       <AppWrapper>
         <HeadlineSVG temporaryMode={true} staticMode={false}/>
+        <SearchBar name="searchValue" placeholder="Enter your city" value={searchValue} onSubmit={handleSubmit} onChange={handleChange}/>
       </AppWrapper>
       <GlobalStyle />
     </React.Fragment>

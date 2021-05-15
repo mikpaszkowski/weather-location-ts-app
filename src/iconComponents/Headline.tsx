@@ -71,7 +71,7 @@ interface HeadlineProps{
 const SVG = styled.svg`
   display: inline-block;
   width: ${(props: HeadlineProps) => (props.svgWidth ? props.svgWidth : "80rem")};
-  height: ${(props: HeadlineProps) => (props.svgHeight ? props.svgHeight : "35rem")};;
+  height: ${(props: HeadlineProps) => (props.svgHeight ? props.svgHeight : "20rem")};;
   margin: 0 auto;
   transform: translateY(-2rem);
   position: ${(props: HeadlineProps) => (props.staticMode ? "absolute" : "")};
@@ -80,11 +80,11 @@ const SVG = styled.svg`
   
    & > path{
     animation: 
-        ${css`${svgStrokeIn} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.3s both`},
-        ${css`${svgFillIn} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s both`},
-        ${(props: HeadlineProps) => (props.temporaryMode ? css`${svgStrokeOut} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 3s forwards` : "")},
-        ${(props: HeadlineProps) => (props.temporaryMode ? css`${svgFillOut} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 2.7s forwards` : "")},
-        ${(props: HeadlineProps) => (props.staticMode ? "" : css`${slideUp} 1.5s cubic-bezier(.2,.72,.01,.87) 3s forwards`)};
+        ${css`${svgStrokeIn} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.5s both`},
+        ${css`${svgFillIn} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 1.1s both`},
+        ${(props: HeadlineProps) => (props.temporaryMode ? css`${svgStrokeOut} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 3.5s forwards` : "")},
+        ${(props: HeadlineProps) => (props.temporaryMode ? css`${svgFillOut} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 3.2s forwards` : "")},
+        ${(props: HeadlineProps) => (props.staticMode ? "" : css`${slideUp} 1.5s cubic-bezier(.2,.72,.01,.87) 3.5s forwards`)};
    }
 `;
 
