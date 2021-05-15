@@ -3,6 +3,7 @@ import HeadlineSVG from "./iconComponents/Headline";
 import styled, { createGlobalStyle } from "styled-components";
 import SearchBar from "./components/search-bar";
 import Clock from "./components/clock";
+import { getWeeklyForecastByCityName } from "./services/wetherAPI";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -55,11 +56,11 @@ function App() {
       setSearchValue(event.target.value);
   };
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-
-
+    const response = await getWeeklyForecastByCityName(searchValue);
+    console.log(JSON.stringify(response));
   }
 
   return (
