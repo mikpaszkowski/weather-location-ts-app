@@ -1,9 +1,12 @@
 import * as React from "react";
 import HeadlineSVG from "./iconComponents/Headline";
+import HeadlineSmallSVG from "./iconComponents/HeadlineSmallSVG";
 import styled, { createGlobalStyle } from "styled-components";
-import SearchBar from "./components/search-bar";
+import SearchBar from "./components/SearchBar";
 import Clock from "./components/clock";
+import MessageContainer from "./components/MessageContainer";
 import { getWeeklyForecastByCityName } from "./services/wetherAPI";
+import { RiEmotionSadLine } from "react-icons/ri";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -44,32 +47,63 @@ const AppWrapper = styled.div`
   margin: 0 auto;
   height: 100vh;
   position: relative;
+  overflow: hidden;
 `;
 
-const{ useState } = React;
+const StyledNotFoundIcon = styled(RiEmotionSadLine)`
+  display: block;
+  height: 5rem;
+  width: 5rem;
+  margin-right: 2rem;
+  font-size: 5.5rem;
+`;
+
+const { useState } = React;
 
 function App() {
-
   const [searchValue, setSearchValue] = useState<string>("");
+  const [weatherInfo, setWeatherInfo] = useState({});
+  const [searchFailed, setSearchFailed] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-      setSearchValue(event.target.value);
+    setSearchValue(event.target.value);
   };
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const response = await getWeeklyForecastByCityName(searchValue);
-    console.log(JSON.stringify(response));
-  }
+    try {
+      const response = await getWeeklyForecastByCityName(searchValue);
+      if (response.status === 200) {
+        setWeatherInfo(response);
+        setSearchFailed(false);
+        console.log("weefwef");
+      }
+    } catch (err) {
+      setSearchFailed(true);
+      console.log(err.message);
+    }
+  };
 
   return (
     <React.Fragment>
-       <HeadlineSVG temporaryMode={false} staticMode={true} svgWidth="30rem" svgHeight="10rem"/>
-        <Clock/>
+      <HeadlineSmallSVG staticMode={true} svgWidth="30rem" svgHeight="10rem" />
+
       <AppWrapper>
-        <HeadlineSVG temporaryMode={true} staticMode={false}/>
-        <SearchBar name="searchValue" placeholder="Enter your city" value={searchValue} onSubmit={handleSubmit} onChange={handleChange}/>
+        <Clock />
+        <HeadlineSVG temporaryMode={true} staticMode={false} />
+        <SearchBar
+          name="searchValue"
+          placeholder="Enter city"
+          value={searchValue}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+        />
+        <MessageContainer
+          active={searchFailed}
+          message="The specified city was not found ..."
+          icon={StyledNotFoundIcon}
+        />
       </AppWrapper>
       <GlobalStyle />
     </React.Fragment>

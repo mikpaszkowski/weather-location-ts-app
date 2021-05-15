@@ -19,18 +19,6 @@ const svgStrokeIn = keyframes`
   }
 `;
 
-const svgStrokeOut = keyframes`
-  0% {
-      stroke-dashoffset: 5079.673828125px;
-      stroke-dasharray: 2539.8369140625px;
-  }
-
-  100% {
-      stroke-dashoffset: 2539.8369140625px;
-      stroke-dasharray: 2539.8369140625px;
-  }
-`;
-
 const svgFillIn = keyframes`
    0% {
         fill: transparent;
@@ -41,28 +29,18 @@ const svgFillIn = keyframes`
     }
 `;
 
-const svgFillOut = keyframes`
- 0% {
-        fill: rgb(255,255,255);
+const slideRight = keyframes`
+    from{
+        transform: translateX(-4rem);
+        opacity: 0;
     }
-
-    100% {
-        fill: transparent;
-    }
-`;
-
-const slideUp = keyframes`
- 0% {
-        transform: translateY(0);
-    }
-
-    100% {
-      transform: translateY(-3rem);
+    to{
+        transform: translateX(0);
+        opacity: 1;
     }
 `;
 
 interface HeadlineProps {
-  temporaryMode?: boolean;
   staticMode?: boolean;
   svgHeight?: string;
   svgWidth?: string;
@@ -82,33 +60,15 @@ const SVG = styled.svg`
 
   & > path {
     animation: ${css`
-        ${svgStrokeIn} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.5s both`}, ${css`
-        ${svgFillIn} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 1.1s both
-      `},
-      ${(props: HeadlineProps) =>
-        props.temporaryMode
-          ? css`
-              ${svgStrokeOut} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 3.5s forwards
-            `
-          : ""},
-      ${(props: HeadlineProps) =>
-        props.temporaryMode
-          ? css`
-              ${svgFillOut} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 3.2s forwards
-            `
-          : ""},
-      ${(props: HeadlineProps) =>
-        props.staticMode
-          ? ""
-          : css`
-              ${slideUp} 1.5s cubic-bezier(.2,.72,.01,.87) 3.5s forwards
-            `};
+        ${svgStrokeIn} 2s cubic-bezier(0.47, 0, 0.745, 0.715) 4s both`}, ${css`
+        ${svgFillIn} 0.7s cubic-bezier(0.47, 0, 0.745, 0.715) 4.6s both`}, ${css`
+        ${slideRight} 1s ease 4s both
+      `};
   }
 `;
 
-const HeadlineSVG: FunctionComponent<HeadlineProps> = ({
+const HeadlineSmallSVG: FunctionComponent<HeadlineProps> = ({
   staticMode,
-  temporaryMode,
   svgHeight,
   svgWidth,
 }) => {
@@ -117,7 +77,6 @@ const HeadlineSVG: FunctionComponent<HeadlineProps> = ({
   return (
     <SVG
       staticMode={staticMode}
-      temporaryMode={temporaryMode}
       svgHeight={svgHeight}
       svgWidth={svgWidth}
       xmlns="http://www.w3.org/2000/svg"
@@ -140,4 +99,4 @@ const HeadlineSVG: FunctionComponent<HeadlineProps> = ({
   );
 };
 
-export default HeadlineSVG;
+export default HeadlineSmallSVG;
