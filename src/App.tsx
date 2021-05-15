@@ -5,8 +5,9 @@ import styled, { createGlobalStyle } from "styled-components";
 import SearchBar from "./components/SearchBar";
 import Clock from "./components/clock";
 import MessageContainer from "./components/MessageContainer";
-import { getWeeklyForecastByCityName } from "./services/wetherAPI";
+import { getCurrentWeatherByCityName } from "./services/wetherAPI";
 import { RiEmotionSadLine } from "react-icons/ri";
+import WeatherResult from "./components/WeatherResult";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -40,9 +41,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: block;
   max-width: 150rem;
   margin: 0 auto;
   height: 100vh;
@@ -62,8 +61,9 @@ const { useState } = React;
 
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [weatherInfo, setWeatherInfo] = useState({});
-  const [searchFailed, setSearchFailed] = useState<boolean>(false);
+  const [currWeatherInfo, setcurrWeatherInfo] = useState(null);
+  const [searchResult, setsearchResult] = useState<boolean | null>(null);
+  const [searchError, setsearchError] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
@@ -73,14 +73,15 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await getWeeklyForecastByCityName(searchValue);
+      const response = await getCurrentWeatherByCityName(searchValue);
       if (response.status === 200) {
-        setWeatherInfo(response);
-        setSearchFailed(false);
-        console.log("weefwef");
+        setcurrWeatherInfo(response.data);
+        setsearchResult(true);
+        setsearchError(false);
+        console.log(response.data);
       }
     } catch (err) {
-      setSearchFailed(true);
+      setsearchError(true);
       console.log(err.message);
     }
   };
@@ -91,18 +92,27 @@ function App() {
 
       <AppWrapper>
         <Clock />
-        <HeadlineSVG temporaryMode={true} staticMode={false} />
+        <HeadlineSVG
+          temporaryMode={true}
+          staticMode={false}
+          searchResult={searchResult}
+        />
         <SearchBar
           name="searchValue"
           placeholder="Enter city"
           value={searchValue}
           onSubmit={handleSubmit}
           onChange={handleChange}
+          searchResult={searchResult}
         />
         <MessageContainer
-          active={searchFailed}
+          active={searchError}
           message="The specified city was not found ..."
           icon={StyledNotFoundIcon}
+        />
+        <WeatherResult
+          currWeatherInfo={currWeatherInfo}
+          searchResult={searchResult}
         />
       </AppWrapper>
       <GlobalStyle />

@@ -3,47 +3,62 @@ import styled, { css, keyframes } from "styled-components";
 
 interface InputProps {
   placeholder: string;
-  onSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   name: string;
 }
 
+interface FormProps {
+  onSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
+  searchResult?: boolean | null;
+}
+
+interface Props extends FormProps, InputProps {}
+
 const slideUp = keyframes`
     from{
-        transform: translateY(0);
+        transform: translateY(15rem);
         opacity: 0;
     }
     to{
-        transform: translateY(-2rem);
+        transform: translateY(10rem);
         opacity: 1;
     }
 `;
 
 const stretch = keyframes`
     from{
-        transform: scaleX(2%)
+        transform: scaleX(.3)
     }
     to{
-        transform: scaleX(100%)
+        transform: scaleX(1)
     }
 `;
 
-const SearchBarWrapper = styled.form`
+const fadeIn = keyframes`
+    from{
+        opacity: 0
+    }
+    to{
+        opacity: 1
+    }
+`;
+//  transform: ${(props: FormProps) =>
+//     props.searchResult ? `translateY(-5rem)` : `translateY(5rem)`};
+
+const SearchBarWrapper = styled.form<FormProps>`
   margin: 0 auto;
   width: 70rem;
   border-radius: 5rem;
   transition: 0.4s 0.4s;
-  transform: translateY(-3rem);
-  animation-name: ${slideUp};
-  animation-delay: 3.5s;
-  animation-timing-function: cubic-bezier(0.2, 0.72, 0.01, 0.87);
-  animation-fill-mode: both;
-  animation-duration: 1s;
+  transform: scaleX(0.3);
+  animation: ${css`
+    ${slideUp} 3s cubic-bezier(0.2, 0.72, 0.01, 0.87) 3.5s both
+  `};
   will-change: initial;
 `;
 
-const SearchBarInput = styled.input`
+const SearchBarInput = styled.input<InputProps>`
   width: 100%;
   padding: 1.5rem 3rem;
   font-size: 3rem;
@@ -52,22 +67,43 @@ const SearchBarInput = styled.input`
   border-radius: 5rem;
   border: none;
   outline: none;
-  animation: ${css`
-    ${stretch} 2s cubic-bezier(.2,.72,.01,.87) 2s both
-  `};
+  animation-name: ${stretch};
+  animation-delay: 2s;
+  animation-timing-function: cubic-bezier(0.2, 0.72, 0.01, 0.87);
+  animation-fill-mode: both;
+  animation-duration: 2s;
+  will-change: initial;
 
   &::placeholder {
     color: #c5c5c5;
+    animation-name: ${fadeIn};
+    animation-delay: 5s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    animation-duration: 2s;
+    will-change: initial;
   }
 
   &:hover {
   }
 `;
 
-const SearchBar = ({ onSubmit, onChange, ...props }: InputProps) => {
+const SearchBar = ({
+  onSubmit,
+  onChange,
+  name,
+  value,
+  placeholder,
+  searchResult,
+}: Props) => {
   return (
-    <SearchBarWrapper onSubmit={onSubmit}>
-      <SearchBarInput onChange={onChange} {...props} />
+    <SearchBarWrapper onSubmit={onSubmit} searchResult={searchResult}>
+      <SearchBarInput
+        onChange={onChange}
+        name={name}
+        value={value}
+        placeholder={placeholder}
+      />
     </SearchBarWrapper>
   );
 };

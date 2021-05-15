@@ -18,9 +18,10 @@ const slideUp = keyframes`
 const MessageWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  max-width: 150rem;
+  justify-content: center;
+  max-width: 80rem;
   margin: 0 auto;
+  margin-top: 10rem;
   padding: 3rem 5rem;
   background-color: rgba(255, 255, 255, 55%);
   border-radius: 2rem;
@@ -44,7 +45,7 @@ const MessageWrapper = styled.div`
 type MessageProps = {
   message?: string;
   icon?: any;
-  active?: boolean;
+  active?: boolean | null;
 };
 
 const NotFound = ({ message, icon, active }: MessageProps) => {

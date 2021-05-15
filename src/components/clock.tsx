@@ -1,4 +1,4 @@
-import { getTime } from "../utils/timeUtility";
+import { getTimeToDisplay } from "../utils/timeUtility";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 
@@ -32,7 +32,7 @@ const Clock: React.FunctionComponent = () => {
 
   useEffect(() => {
     let intervalId = setInterval(() => {
-      setTime(getTime());
+      setTime(getTimeToDisplay());
     }, 1000);
     return () => clearInterval(intervalId);
   }, []);

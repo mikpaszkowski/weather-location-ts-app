@@ -66,16 +66,17 @@ interface HeadlineProps {
   staticMode?: boolean;
   svgHeight?: string;
   svgWidth?: string;
+  searchResult?: boolean | null;
 }
 
 const SVG = styled.svg`
-  display: inline-block;
+  display: block;
   width: ${(props: HeadlineProps) =>
     props.svgWidth ? props.svgWidth : "80rem"};
-  height: ${(props: HeadlineProps) =>
-    props.svgHeight ? props.svgHeight : "20rem"};
+  height: ${(props: HeadlineProps) => (props.searchResult ? "5rem" : "20rem")};
   margin: 0 auto;
-  transform: translateY(-2rem);
+  transform: translateY(15rem);
+  transition: 1s 0.5s;
   position: ${(props: HeadlineProps) => (props.staticMode ? "absolute" : "")};
   top: ${(props: HeadlineProps) => (props.staticMode ? "2rem" : "")};
   left: ${(props: HeadlineProps) => (props.staticMode ? "2rem" : "")};
@@ -111,15 +112,15 @@ const HeadlineSVG: FunctionComponent<HeadlineProps> = ({
   temporaryMode,
   svgHeight,
   svgWidth,
+  searchResult,
 }) => {
-  console.log(staticMode);
-
   return (
     <SVG
       staticMode={staticMode}
       temporaryMode={temporaryMode}
       svgHeight={svgHeight}
       svgWidth={svgWidth}
+      searchResult={searchResult}
       xmlns="http://www.w3.org/2000/svg"
       width="480.979"
       height="54.788"
