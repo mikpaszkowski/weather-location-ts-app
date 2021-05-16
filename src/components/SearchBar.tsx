@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
+import { BiSearch } from "react-icons/bi";
 
 interface InputProps {
   placeholder: string;
@@ -48,7 +49,8 @@ const fadeIn = keyframes`
 
 const SearchBarWrapper = styled.form<FormProps>`
   margin: 0 auto;
-  width: 70rem;
+  width: 100%;
+  position: relative;
   border-radius: 5rem;
   transition: 0.4s 0.4s;
   transform: scaleX(0.3);
@@ -60,7 +62,7 @@ const SearchBarWrapper = styled.form<FormProps>`
 
 const SearchBarInput = styled.input<InputProps>`
   width: 100%;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 3rem 1.5rem 8rem;
   font-size: 3rem;
   font-weight: 300;
   color: #909090;
@@ -88,6 +90,15 @@ const SearchBarInput = styled.input<InputProps>`
   }
 `;
 
+const SearchIcon = styled(BiSearch)`
+  position: absolute;
+  display: block;
+  top: 1.4rem;
+  left: 2.4rem;
+  font-size: 3.5rem;
+  color: #c5c5c5;
+`;
+
 const SearchBar = ({
   onSubmit,
   onChange,
@@ -104,6 +115,7 @@ const SearchBar = ({
         value={value}
         placeholder={placeholder}
       />
+      <SearchIcon />
     </SearchBarWrapper>
   );
 };

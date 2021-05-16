@@ -16,7 +16,7 @@ const slideUp = keyframes`
 `;
 
 const MessageWrapper = styled.div`
-  display: flex;
+  display: ${(props: MessageProps) => (props.active ? "flex" : "none")};
   flex-direction: row;
   justify-content: center;
   max-width: 80rem;

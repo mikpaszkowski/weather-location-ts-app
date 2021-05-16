@@ -44,6 +44,7 @@ const AppWrapper = styled.div`
   display: block;
   max-width: 150rem;
   margin: 0 auto;
+  padding: 0 10rem;
   height: 100vh;
   position: relative;
   overflow: hidden;
@@ -74,7 +75,8 @@ function App() {
 
     try {
       const response = await getCurrentWeatherByCityName(searchValue);
-      if (response.status === 200) {
+      setsearchResult(false);
+      if (response.data) {
         setcurrWeatherInfo(response.data);
         setsearchResult(true);
         setsearchError(false);

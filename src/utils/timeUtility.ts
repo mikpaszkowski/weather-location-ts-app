@@ -1,5 +1,5 @@
 
-const days = ["Monday", "Thursday", "Wednseday", "Thursday", "Friday", "Saturday", "Sunday"];
+const days = [ "Sunday","Monday", "Thursday", "Wednseday", "Thursday", "Friday", "Saturday"];
 const months = ["January","February","March","April","May","June","July",
 "August","September","October","November","December"];
 
@@ -21,14 +21,9 @@ export const getBasicTimeFormatFromTimestamp: Function = (time: number) => {
     return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}:`
 }
 
-export const getFullDateTime: Function = (time: number) => {
-    return new Date(time);
-}
-
-export const getFormattedDate: Function = (time: number) => {
-    const date = new Date(time);
+export const getFormattedDate: Function = () => {
+    const date = new Date();
     const dayInNumber = date.toLocaleDateString("en-GB").split("/").slice(0, 1)[0];
-
     return `${days[date.getDay()]} ${dayInNumber} ${months[date.getMonth()]}`;
 }
 

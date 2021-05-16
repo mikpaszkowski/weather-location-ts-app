@@ -23,6 +23,7 @@ const WeatherResult = ({
   useEffect(() => {
     if (searchResult) {
       setCurrWeather(formatWeatherJSONResponse(currWeatherInfo));
+      console.log(currWeather);
     }
     return;
   }, [searchResult]);
