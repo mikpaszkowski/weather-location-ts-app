@@ -5,7 +5,10 @@ import styled, { createGlobalStyle } from "styled-components";
 import SearchBar from "./components/SearchBar";
 import Clock from "./components/clock";
 import MessageContainer from "./components/MessageContainer";
-import { getCurrentWeatherByCityName } from "./services/wetherAPI";
+import {
+  getCurrentWeatherByCityName,
+  getWeeklyForecastByCityName,
+} from "./services/wetherAPI";
 import { RiEmotionSadLine } from "react-icons/ri";
 import WeatherResult from "./components/WeatherResult";
 
@@ -63,6 +66,9 @@ const { useState } = React;
 function App() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [currWeatherInfo, setcurrWeatherInfo] = useState(null);
+  const [weeklyForecastInfo, setWeeklyForecast] = useState<
+    Array<Object | null>
+  >([]);
   const [searchResult, setsearchResult] = useState<boolean | null>(null);
   const [searchError, setsearchError] = useState(false);
 
@@ -74,13 +80,16 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await getCurrentWeatherByCityName(searchValue);
+      const weatherResponse = await getCurrentWeatherByCityName(searchValue);
+      const forecastResponse = await getWeeklyForecastByCityName(searchValue);
       setsearchResult(false);
-      if (response.data) {
-        setcurrWeatherInfo(response.data);
+      if (weatherResponse.data && forecastResponse.data) {
+        setcurrWeatherInfo(weatherResponse.data);
+        setWeeklyForecast(forecastResponse.data.list);
         setsearchResult(true);
         setsearchError(false);
-        console.log(response.data);
+        // console.log(weatherResponse.data);
+        // console.log(forecastResponse.data.list);
       }
     } catch (err) {
       setsearchError(true);
@@ -114,6 +123,7 @@ function App() {
         />
         <WeatherResult
           currWeatherInfo={currWeatherInfo}
+          weeklyForecastInfo={weeklyForecastInfo}
           searchResult={searchResult}
         />
       </AppWrapper>

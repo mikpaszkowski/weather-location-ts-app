@@ -10,20 +10,26 @@ const WeatherResultWrapper = styled.div``;
 type WeatherResultProp = {
   currWeatherInfo: Object | null;
   searchResult: Object | null;
+  weeklyForecastInfo: Array<Object | null>;
 };
 
 const { useEffect, useState } = React;
 
 const WeatherResult = ({
   currWeatherInfo,
+  weeklyForecastInfo,
   searchResult,
 }: WeatherResultProp) => {
   const [currWeather, setCurrWeather] = useState({});
+  const [weeklyForecast, setweeklyForecast] = useState<Array<Object | null>>(
+    []
+  );
 
   useEffect(() => {
     if (searchResult) {
       setCurrWeather(formatWeatherJSONResponse(currWeatherInfo));
-      console.log(currWeather);
+      setweeklyForecast(weeklyForecast);
+      //  console.log(weeklyForecastInfo);
     }
     return;
   }, [searchResult]);
@@ -34,7 +40,7 @@ const WeatherResult = ({
         <>
           <CurrentWeatherInfo currWeather={currWeather} />
           <CurrentWeatherDetails />
-          <WeeklyForecast />
+          <WeeklyForecast weeklyForecast={weeklyForecast} />
         </>
       ) : null}
     </WeatherResultWrapper>
