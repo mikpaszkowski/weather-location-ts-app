@@ -11,7 +11,7 @@ interface IconProps {
   src: string;
 }
 
-const CustomIcon = ({ src, alt, width }: IconProps) => {
+export const CustomIcon = ({ src, alt, width }: IconProps) => {
   return (
     <IMG
       src={`${process.env.PUBLIC_URL}/weather-svg-images/${src}.svg`}
@@ -20,5 +20,3 @@ const CustomIcon = ({ src, alt, width }: IconProps) => {
     />
   );
 };
-
-export default CustomIcon;

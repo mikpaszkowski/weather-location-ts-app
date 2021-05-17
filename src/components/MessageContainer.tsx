@@ -48,7 +48,7 @@ type MessageProps = {
   active?: boolean | null;
 };
 
-const NotFound = ({ message, icon, active }: MessageProps) => {
+export const NotFound = ({ message, icon, active }: MessageProps) => {
   const TheIcon = icon;
   return (
     <MessageWrapper active={active}>
@@ -57,5 +57,3 @@ const NotFound = ({ message, icon, active }: MessageProps) => {
     </MessageWrapper>
   );
 };
-
-export default NotFound;

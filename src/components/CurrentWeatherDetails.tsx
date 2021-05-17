@@ -1,7 +1,5 @@
 import * as React from "react";
 
-const CurrentWeatherDetails = () => {
+export const CurrentWeatherDetails = () => {
   return <div></div>;
 };
-
-export default CurrentWeatherDetails;

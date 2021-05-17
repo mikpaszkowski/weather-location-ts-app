@@ -99,7 +99,7 @@ const SearchIcon = styled(BiSearch)`
   color: #c5c5c5;
 `;
 
-const SearchBar = ({
+export const SearchBar = ({
   onSubmit,
   onChange,
   name,
@@ -119,5 +119,3 @@ const SearchBar = ({
     </SearchBarWrapper>
   );
 };
-
-export default SearchBar;

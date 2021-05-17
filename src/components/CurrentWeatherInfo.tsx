@@ -80,7 +80,7 @@ type CurrWeatherProp = {
   currWeather: Object | null | any;
 };
 
-const CurrentWeatherInfo = ({ currWeather }: CurrWeatherProp) => {
+export const CurrentWeatherInfo = ({ currWeather }: CurrWeatherProp) => {
   const {
     city,
     country,
@@ -117,5 +117,3 @@ const CurrentWeatherInfo = ({ currWeather }: CurrWeatherProp) => {
     </CurrentWeatherResultWrapper>
   );
 };
-
-export default CurrentWeatherInfo;

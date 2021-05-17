@@ -67,7 +67,7 @@ const SVG = styled.svg`
   }
 `;
 
-const HeadlineSmallSVG: FunctionComponent<HeadlineProps> = ({
+export const HeadlineSmallSVG: FunctionComponent<HeadlineProps> = ({
   staticMode,
   svgHeight,
   svgWidth,
@@ -98,5 +98,3 @@ const HeadlineSmallSVG: FunctionComponent<HeadlineProps> = ({
     </SVG>
   );
 };
-
-export default HeadlineSmallSVG;

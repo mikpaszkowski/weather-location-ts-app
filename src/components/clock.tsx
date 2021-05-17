@@ -27,7 +27,7 @@ const ClockWrapper = styled.div`
 `;
 const { useState, useEffect } = React;
 
-const Clock: React.FunctionComponent = () => {
+export const Clock: React.FunctionComponent = () => {
   const [time, setTime] = useState<string>("00:00:00");
 
   useEffect(() => {
@@ -43,5 +43,3 @@ const Clock: React.FunctionComponent = () => {
     </ClockWrapper>
   );
 };
-
-export default Clock;

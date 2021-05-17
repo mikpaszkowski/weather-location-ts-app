@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import ForecastDailyCard from "./ForecastDailyCard";
+import { ForecastDailyCard } from "./ForecastDailyCard";
 
 const WeeklyForecastWrapper = styled.div`
   position: relative;
@@ -11,7 +11,7 @@ type WeeklyForecastProps = {
   weeklyForecast: Array<Object | null>;
 };
 
-const WeeklyForecast = ({ weeklyForecast }: WeeklyForecastProps) => {
+export const WeeklyForecast = ({ weeklyForecast }: WeeklyForecastProps) => {
   console.log(weeklyForecast);
   return (
     <WeeklyForecastWrapper>
@@ -21,5 +21,3 @@ const WeeklyForecast = ({ weeklyForecast }: WeeklyForecastProps) => {
     </WeeklyForecastWrapper>
   );
 };
-
-export default WeeklyForecast;

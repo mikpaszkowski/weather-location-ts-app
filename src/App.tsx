@@ -1,10 +1,10 @@
 import * as React from "react";
-import HeadlineSVG from "./iconComponents/Headline";
-import HeadlineSmallSVG from "./iconComponents/HeadlineSmallSVG";
+import { HeadlineSVG } from "./iconComponents/Headline";
+import { HeadlineSmallSVG } from "./iconComponents/HeadlineSmallSVG";
 import styled, { createGlobalStyle } from "styled-components";
-import SearchBar from "./components/SearchBar";
-import Clock from "./components/clock";
-import MessageContainer from "./components/MessageContainer";
+import { SearchBar } from "./components/SearchBar";
+import { Clock } from "./components/clock";
+import { NotFound } from "./components/MessageContainer";
 import {
   getCurrentWeatherByCityName,
   getWeeklyForecastByCityName,
@@ -63,7 +63,7 @@ const StyledNotFoundIcon = styled(RiEmotionSadLine)`
 
 const { useState } = React;
 
-function App() {
+export function App() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [currWeatherInfo, setcurrWeatherInfo] = useState(null);
   const [weeklyForecastInfo, setWeeklyForecast] = useState<
@@ -116,7 +116,7 @@ function App() {
           onChange={handleChange}
           searchResult={searchResult}
         />
-        <MessageContainer
+        <NotFound
           active={searchError}
           message="The specified city was not found ..."
           icon={StyledNotFoundIcon}
@@ -131,5 +131,3 @@ function App() {
     </React.Fragment>
   );
 }
-
-export default App;
