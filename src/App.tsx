@@ -9,6 +9,7 @@ import {
   getCurrentWeatherByCityName,
   getWeeklyForecastByCityName,
 } from "./services/wetherAPI";
+import { getCoordinatesByCityName } from "./services/geocodingAPI";
 import { RiEmotionSadLine } from "react-icons/ri";
 import WeatherResult from "./components/WeatherResult";
 
@@ -82,14 +83,13 @@ export function App() {
     try {
       const weatherResponse = await getCurrentWeatherByCityName(searchValue);
       const forecastResponse = await getWeeklyForecastByCityName(searchValue);
+      const coordinates = await getCoordinatesByCityName(searchValue);
       setsearchResult(false);
       if (weatherResponse.data && forecastResponse.data) {
         setcurrWeatherInfo(weatherResponse.data);
         setWeeklyForecast(forecastResponse.data.list);
         setsearchResult(true);
         setsearchError(false);
-        // console.log(weatherResponse.data);
-        // console.log(forecastResponse.data.list);
       }
     } catch (err) {
       setsearchError(true);

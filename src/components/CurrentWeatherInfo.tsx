@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
-import CustomIcon from "../iconComponents/CustomIcon";
+import { CustomIcon } from "../iconComponents/CustomIcon";
 
 const slideDown = keyframes`
   from{
@@ -33,6 +33,7 @@ const CurrentWeatherResultWrapper = styled.div`
   animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
   animation-fill-mode: both;
   background-color: rgba(255, 255, 255, 30%);
+  backdrop-filter: blur(4px);
   will-change: transform;
 `;
 

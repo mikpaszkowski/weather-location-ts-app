@@ -1,6 +1,6 @@
-import { getBasicTimeFormatFromTimestamp, getFormattedDate } from "../utils/timeUtility";
+import { getBasicTimeFormatFromTimestamp, getFormattedDate } from "./timeUtility";
 
-export const formatWeatherJSONResponse: Function = (data: any) => {
+export const formattedResponse: Function = (data: any) => {
     return {
         city: data.name,
         date: getFormattedDate(),

@@ -16,7 +16,7 @@ export const getTimeToDisplay: Function =  () => {
     return `${hours}:${minutes}:${seconds}`;
 };
 
-export const getBasicTimeFormatFromTimestamp: Function = (time: number) => {
+export const getBasicTimeFormatFromTimestamp: Function = (time: number): string => {
     const date = new Date(time);
     return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}:`
 }

@@ -3,7 +3,7 @@ import { CurrentWeatherDetails } from "./CurrentWeatherDetails";
 import { CurrentWeatherInfo } from "./CurrentWeatherInfo";
 import { WeeklyForecast } from "./WeeklyForecast";
 import styled from "styled-components";
-import { formatWeatherJSONResponse } from "../utils/formatWeatherJSONResponse";
+import { formattedResponse } from "../utils/formatWeatherResponse";
 
 const WeatherResultWrapper = styled.div``;
 
@@ -27,9 +27,8 @@ const WeatherResult = ({
 
   useEffect(() => {
     if (searchResult) {
-      setCurrWeather(formatWeatherJSONResponse(currWeatherInfo));
-      setweeklyForecast(weeklyForecast);
-      //  console.log(weeklyForecastInfo);
+      setCurrWeather(formattedResponse(currWeatherInfo));
+      setweeklyForecast(weeklyForecastInfo);
     }
     return;
   }, [searchResult]);

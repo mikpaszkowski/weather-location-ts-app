@@ -12,11 +12,10 @@ type WeeklyForecastProps = {
 };
 
 export const WeeklyForecast = ({ weeklyForecast }: WeeklyForecastProps) => {
-  console.log(weeklyForecast);
   return (
     <WeeklyForecastWrapper>
       {weeklyForecast.map((forecast, index) => (
-        <ForecastDailyCard forecast={forecast} />
+        <ForecastDailyCard key={index} forecast={forecast} />
       ))}
     </WeeklyForecastWrapper>
   );
