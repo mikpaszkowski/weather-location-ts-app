@@ -1,21 +1,8 @@
 import * as React from "react";
-import { HeadlineSVG } from "./iconComponents/Headline";
 import { HeadlineSmallSVG } from "./iconComponents/HeadlineSmallSVG";
 import styled, { createGlobalStyle } from "styled-components";
-import { SearchBar } from "./components/SearchBar";
 import { Clock } from "./components/clock";
-import { NotFound } from "./components/MessageContainer";
-import {
-  getCurrentWeatherByCityName,
-  getWeeklyForecastByCityName,
-  getWeeklyForecastByCoordinates,
-} from "./services/wetherAPI";
-import { getCoordinatesByCityName } from "./services/geocodingAPI";
-import { RiEmotionSadLine } from "react-icons/ri";
-import WeatherResult from "./components/WeatherResult";
-import { connect } from "react-redux";
-import { setCurrentWeather } from "./store/currentWeather/actions";
-import { formattedResponse } from "./utils/formatWeatherResponse";
+import Home from "./pages/Home";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -58,84 +45,18 @@ const AppWrapper = styled.div`
   overflow: hidden;
 `;
 
-const StyledNotFoundIcon = styled(RiEmotionSadLine)`
-  display: block;
-  height: 5rem;
-  width: 5rem;
-  margin-right: 2rem;
-  font-size: 5.5rem;
-`;
-
-const { useState } = React;
-
-function App({ setCurrWeather }: any) {
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [weeklyForecastInfo, setWeeklyForecast] = useState<
-    Array<Object | null>
-  >([]);
-  const [searchResult, setsearchResult] = useState<boolean | null>(null);
-  const [searchError, setsearchError] = useState(false);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(event.target.value);
-  };
-
-  const handleSubmit = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
-    try {
-      const weatherResponse = await getCurrentWeatherByCityName(searchValue);
-      const forecastResponse = await getWeeklyForecastByCityName(searchValue);
-      const coordinates = await getCoordinatesByCityName(searchValue);
-      const forecast = await getWeeklyForecastByCoordinates(coordinates);
-      console.log(forecast);
-      setsearchResult(false);
-      if (weatherResponse.data && forecastResponse.data) {
-        setCurrWeather(formattedResponse(weatherResponse.data));
-        setWeeklyForecast(forecastResponse.data.list);
-        setsearchResult(true);
-        setsearchError(false);
-      }
-    } catch (err) {
-      setsearchError(true);
-      console.log(err.message);
-    }
-  };
-
+const App = () => {
   return (
     <React.Fragment>
       <HeadlineSmallSVG staticMode={true} svgWidth="30rem" svgHeight="10rem" />
 
       <AppWrapper>
         <Clock />
-        <HeadlineSVG
-          temporaryMode={true}
-          staticMode={false}
-          searchResult={searchResult}
-        />
-        <SearchBar
-          name="searchValue"
-          placeholder="Enter city"
-          value={searchValue}
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-          searchResult={searchResult}
-        />
-        <NotFound
-          active={searchError}
-          message="The specified city was not found ..."
-          icon={StyledNotFoundIcon}
-        />
-        <WeatherResult searchResult={searchResult} />
+        <Home />
       </AppWrapper>
       <GlobalStyle />
     </React.Fragment>
   );
-}
+};
 
-const mapDispatchToProps = (dispatch: DispatchType) => ({
-  setCurrWeather: (currWeather: ICurrWeather) =>
-    dispatch(setCurrentWeather(currWeather)),
-});
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

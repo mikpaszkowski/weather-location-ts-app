@@ -27,6 +27,49 @@ type CurrWeatherAction = {
     payload: ICurrWeather
 }
 
-type DispatchType = (args: CurrWeatherAction) => CurrWeatherAction;
+type CurrWeatherDispatchType = (args: CurrWeatherAction) => CurrWeatherAction;
+
+
+
+
+type IFeelsLike = {
+    day: number;
+    night: number;
+}
+
+type ITemp = {
+    max: number;
+    min: number;
+}
+
+interface IDailyForecast {
+    date: string;
+    clouds: number;
+    feelsLike: IFeelsLike;
+    humitidy: number;
+    moonrise: number;
+    moonset: number;
+    pressure: number;
+    sunrise: number;
+    sunset: number;
+    rain: number;
+    temp: ITemp;
+    windSpeed: number;
+    description: string;
+    icon: string;
+}
+
+type WeeklyForecastState = {
+    weeklyForecast: Array<IDailyForecast>
+}
+
+type WeeklyForecastAction = {
+    type: string;
+    payload: Array<IDailyForecast>
+}
+
+type WeeklyForecastDispatchType = (args: WeeklyForecastAction) => WeeklyForecastAction;
+
+
 
 

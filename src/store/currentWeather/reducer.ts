@@ -1,6 +1,6 @@
 import { GET_CURRENT_WEATHER } from "../actionTypes";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: CurrWeatherState = {
   currWeather: {
     city: "",
     date: "",

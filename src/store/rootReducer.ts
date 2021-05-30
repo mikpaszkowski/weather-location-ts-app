@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { currentWeatherReducer } from "./currentWeather/reducer";
+import { weeklyForecastReducer } from "./forecast/reducer"
 
 
 const persistConfig = {
@@ -11,7 +12,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    currWeather: currentWeatherReducer
+    currWeather: currentWeatherReducer,
+    weeklyForecast: weeklyForecastReducer
 });
 
 
