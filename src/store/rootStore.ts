@@ -6,9 +6,7 @@ import thunk from "redux-thunk";
 
 const middlewares = [logger, thunk];
 
-export const store: Store<CurrWeatherAction, CurrWeatherState> & {
-    dispatch: DispatchType | any
-} = createStore(rootReducer, applyMiddleware(...middlewares))
+export const store = createStore(rootReducer as any, applyMiddleware(...middlewares))
 
 export const persistor = persistStore(store);
 

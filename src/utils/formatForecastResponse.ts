@@ -7,7 +7,7 @@ export const formattedResponse: Function = (data: any) => {
         country: data.sys.country,
         lat: data.coord.lat,
         lon: data.coord.lon,
-        hiumidity: data.main.humidity,
+        humidity: data.main.humidity,
         pressure: data.main.pressure,
         temp: Math.round(data.main.temp),
         tempMax: Math.round(data.main.temp_max),

@@ -8,10 +8,14 @@ import { NotFound } from "./components/MessageContainer";
 import {
   getCurrentWeatherByCityName,
   getWeeklyForecastByCityName,
+  getWeeklyForecastByCoordinates,
 } from "./services/wetherAPI";
 import { getCoordinatesByCityName } from "./services/geocodingAPI";
 import { RiEmotionSadLine } from "react-icons/ri";
 import WeatherResult from "./components/WeatherResult";
+import { connect } from "react-redux";
+import { setCurrentWeather } from "./store/currentWeather/actions";
+import { formattedResponse } from "./utils/formatWeatherResponse";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -64,9 +68,8 @@ const StyledNotFoundIcon = styled(RiEmotionSadLine)`
 
 const { useState } = React;
 
-export function App() {
+function App({ setCurrWeather }: any) {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [currWeatherInfo, setcurrWeatherInfo] = useState(null);
   const [weeklyForecastInfo, setWeeklyForecast] = useState<
     Array<Object | null>
   >([]);
@@ -84,9 +87,11 @@ export function App() {
       const weatherResponse = await getCurrentWeatherByCityName(searchValue);
       const forecastResponse = await getWeeklyForecastByCityName(searchValue);
       const coordinates = await getCoordinatesByCityName(searchValue);
+      const forecast = await getWeeklyForecastByCoordinates(coordinates);
+      console.log(forecast);
       setsearchResult(false);
       if (weatherResponse.data && forecastResponse.data) {
-        setcurrWeatherInfo(weatherResponse.data);
+        setCurrWeather(formattedResponse(weatherResponse.data));
         setWeeklyForecast(forecastResponse.data.list);
         setsearchResult(true);
         setsearchError(false);
@@ -121,13 +126,16 @@ export function App() {
           message="The specified city was not found ..."
           icon={StyledNotFoundIcon}
         />
-        <WeatherResult
-          currWeatherInfo={currWeatherInfo}
-          weeklyForecastInfo={weeklyForecastInfo}
-          searchResult={searchResult}
-        />
+        <WeatherResult searchResult={searchResult} />
       </AppWrapper>
       <GlobalStyle />
     </React.Fragment>
   );
 }
+
+const mapDispatchToProps = (dispatch: DispatchType) => ({
+  setCurrWeather: (currWeather: ICurrWeather) =>
+    dispatch(setCurrentWeather(currWeather)),
+});
+
+export default connect(null, mapDispatchToProps)(App);

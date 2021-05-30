@@ -2,24 +2,24 @@
 interface ICurrWeather {
     city: string;
     date: string;
-    country: string,
-    lat: number,
-    lon: number,
-    hiumidity: number,
-    pressure: number,
-    temp: number,
-    tempMax: number,
-    tempMin: number,
-    sunrise: string,
-    sunset: string,
-    description: string,
-    icon: string,
-    windSpeed: number,
+    country: string;
+    lat: number;
+    lon: number;
+    humidity: number;
+    pressure: number;
+    temp: number;
+    tempMax: number;
+    tempMin: number;
+    sunrise: string;
+    sunset: string;
+    description: string;
+    icon: string;
+    windSpeed: number;
     clouds: string
 }
 
 type CurrWeatherState = {
-    currWeather: ICurrWeather | null
+    currWeather: ICurrWeather
 }
 
 type CurrWeatherAction = {

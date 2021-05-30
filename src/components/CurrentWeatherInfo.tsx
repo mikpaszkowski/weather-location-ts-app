@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { CustomIcon } from "../iconComponents/CustomIcon";
+import { connect } from "react-redux";
 
 const slideDown = keyframes`
   from{
@@ -77,30 +78,9 @@ const Description = styled.div`
   font-weight: 300;
 `;
 
-type CurrWeatherProp = {
-  currWeather: Object | null | any;
-};
-
-export const CurrentWeatherInfo = ({ currWeather }: CurrWeatherProp) => {
-  const {
-    city,
-    country,
-    date,
-    lat,
-    lon,
-    hiumidity,
-    pressure,
-    temp,
-    tempMax,
-    tempMin,
-    sunrise,
-    sunset,
-    description,
-    icon,
-    windSpeed,
-    clouds,
-  } = currWeather;
-
+const CurrentWeatherInfo = ({ currWeather }: any) => {
+  const { city, country, date, description, icon, temp } =
+    currWeather.currWeather;
   return (
     <CurrentWeatherResultWrapper>
       <DateLocationWrapper>
@@ -118,3 +98,9 @@ export const CurrentWeatherInfo = ({ currWeather }: CurrWeatherProp) => {
     </CurrentWeatherResultWrapper>
   );
 };
+
+const mapStateToProps = ({ currWeather }: CurrWeatherState) => ({
+  currWeather: currWeather,
+});
+
+export default connect(mapStateToProps)(CurrentWeatherInfo);
