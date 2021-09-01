@@ -1,6 +1,29 @@
 import { getBasicTimeFormatFromTimestamp, getFormattedDate } from "./timeUtility";
 
-export const formattedResponse: Function = (data: any) => {
+export interface ICurrWeatherResponseContent {
+    city: string,
+    date: string,
+    country: string,
+    lat: number,
+    lon: number,
+    humidity: number,
+    pressure: number,
+    temp: number,
+    tempMax: number,
+    tempMin: number,
+    sunrise: number,
+    sunset: number,
+    description: string,
+    icon: string,
+    windSpeed: number,
+    clouds: number
+}
+
+export interface ICurrWeatherResponse {
+    currWeatherData: ICurrWeatherResponse | null
+}
+
+export const formattedResponse: Function = (data: any): ICurrWeatherResponseContent => {
     return {
         city: data.name,
         date: getFormattedDate(),
@@ -18,6 +41,5 @@ export const formattedResponse: Function = (data: any) => {
         icon: data.weather[0].icon,
         windSpeed: data.wind.speed,
         clouds: data.clouds.all
-
     }
 }

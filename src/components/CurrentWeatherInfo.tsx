@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { CustomIcon } from "../iconComponents/CustomIcon";
-import { connect } from "react-redux";
 
 const slideDown = keyframes`
   from{
@@ -99,8 +98,4 @@ const CurrentWeatherInfo = ({ currWeather }: any) => {
   );
 };
 
-const mapStateToProps = ({ currWeather }: CurrWeatherState) => ({
-  currWeather: currWeather,
-});
-
-export default connect(mapStateToProps)(CurrentWeatherInfo);
+export default CurrentWeatherInfo;

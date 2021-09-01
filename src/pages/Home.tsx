@@ -11,10 +11,11 @@ import {
   getWeeklyForecastByCityName,
   getWeeklyForecastByCoordinates,
 } from "../services/wetherAPI";
-import { getCoordinatesByCityName } from "../services/geocodingAPI";
-import { connect } from "react-redux";
-import { setCurrentWeather } from "../store/currentWeather/actions";
-import { setWeeklyWeather } from "../store/forecast/actions";
+import { getCoordinatesByQuery } from "../services/reverseAndForwardGeocodingAPI";
+import { useDispatch, useSelector } from "react-redux";
+import currWeatherSelector from "../store/currentWeather/currentWeatherSlice";
+import { useAppSelector, useAppDispatch } from "../hooks/storeHooks";
+import { set } from "../store/currentWeather/currentWeatherSlice";
 
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
   display: block;
@@ -28,7 +29,9 @@ const HomeWrapper = styled.div``;
 
 const { useState } = React;
 
-const Home = ({ setCurrWeather }: any) => {
+const Home = () => {
+  const getCurrWeather = useAppSelector((state) => state.currWeather);
+  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResult, setsearchResult] = useState<boolean | null>(null);
   const [searchError, setsearchError] = useState(false);
@@ -43,18 +46,18 @@ const Home = ({ setCurrWeather }: any) => {
     try {
       const weatherResponse = await getCurrentWeatherByCityName(searchValue);
       const forecastResponse = await getWeeklyForecastByCityName(searchValue);
-      const coordinates = await getCoordinatesByCityName(searchValue);
-      const forecast = await getWeeklyForecastByCoordinates(coordinates);
+      // const coordinates = await getCoordinatesByQuery(searchValue);
+      // const forecast = await getWeeklyForecastByCoordinates(coordinates);
       setsearchResult(false);
       if (weatherResponse.data && forecastResponse.data) {
-        setCurrWeather(formattedResponse(weatherResponse.data));
+        dispatch(set(formattedResponse(weatherResponse.data)));
         // setWeeklyForecast(forecast.);
         setsearchResult(true);
         setsearchError(false);
       }
     } catch (err) {
       setsearchError(true);
-      console.log(err.message);
+      // console.log(err.message);
     }
   };
 
@@ -83,15 +86,4 @@ const Home = ({ setCurrWeather }: any) => {
   );
 };
 
-const mapDispatchToProps = (
-  dispatchCurrWeather: CurrWeatherDispatchType,
-  dispatchWeeklyWeather: WeeklyForecastDispatchType
-) => ({
-  setCurrWeather: (currWeather: ICurrWeather) =>
-    dispatchCurrWeather(setCurrentWeather(currWeather)),
-  setWeeklyForecast: (weeklyForecast: Array<IDailyForecast>) => {
-    dispatchWeeklyWeather(setWeeklyWeather(weeklyForecast));
-  },
-});
-
-export default connect(mapDispatchToProps)(Home);
+export default Home;

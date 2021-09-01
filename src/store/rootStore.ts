@@ -1,17 +1,21 @@
-import { createStore, applyMiddleware, Store, Action } from "redux";
+import { configureStore, applyMiddleware, Store, Action } from "@reduxjs/toolkit";
 import logger from "redux-logger"
 import rootReducer from "./rootReducer";
-import { persistStore } from "redux-persist";
 import thunk from "redux-thunk";
+import { currWeatherReducer } from "./currentWeather/currWeatherReducer";
 
 const middlewares = [logger, thunk];
 
-export const store = createStore(rootReducer as any, applyMiddleware(...middlewares))
+const store = configureStore({
+    reducer: {
+        currWeather: currWeatherReducer
+    },
+    middleware: middlewares
+});
 
-export const persistor = persistStore(store);
+export type AppDispatch = typeof store.dispatch;
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default{
-    store,
-    persistor
-}
+export type RootState = ReturnType<typeof store.getState>;
+
+export default store;
+

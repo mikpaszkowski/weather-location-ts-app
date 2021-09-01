@@ -21,7 +21,7 @@ export const getBasicTimeFormatFromTimestamp: Function = (time: number): string 
     return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}:`
 }
 
-export const getFormattedDate: Function = () => {
+export const getFormattedDate: Function = (): string => {
     const date = new Date();
     const dayInNumber = date.toLocaleDateString("en-GB").split("/").slice(0, 1)[0];
     return `${days[date.getDay()]} ${dayInNumber} ${months[date.getMonth()]}`;
