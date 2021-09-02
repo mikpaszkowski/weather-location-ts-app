@@ -13,9 +13,11 @@ import {
 } from "../services/wetherAPI";
 import { getCoordinatesByQuery } from "../services/reverseAndForwardGeocodingAPI";
 import { useDispatch, useSelector } from "react-redux";
-import currWeatherSelector from "../store/currentWeather/currentWeatherSlice";
+import {
+  set,
+  selectCurrentWeather,
+} from "../store/currentWeather/currentWeatherSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/storeHooks";
-import { set } from "../store/currentWeather/currentWeatherSlice";
 
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
   display: block;
@@ -30,8 +32,8 @@ const HomeWrapper = styled.div``;
 const { useState } = React;
 
 const Home = () => {
-  const getCurrWeather = useAppSelector((state) => state.currWeather);
   const dispatch = useDispatch();
+  const getCurrWeather = useAppSelector(selectCurrentWeather);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResult, setsearchResult] = useState<boolean | null>(null);
   const [searchError, setsearchError] = useState(false);
@@ -50,7 +52,9 @@ const Home = () => {
       // const forecast = await getWeeklyForecastByCoordinates(coordinates);
       setsearchResult(false);
       if (weatherResponse.data && forecastResponse.data) {
+        console.log(getCurrWeather);
         dispatch(set(formattedResponse(weatherResponse.data)));
+        console.log(getCurrWeather);
         // setWeeklyForecast(forecast.);
         setsearchResult(true);
         setsearchError(false);

@@ -1,12 +1,10 @@
 import { configureStore, applyMiddleware, Store, Action } from "@reduxjs/toolkit";
 import logger from "redux-logger"
-import rootReducer from "./rootReducer";
-import thunk from "redux-thunk";
-import { currWeatherReducer } from "./currentWeather/currWeatherReducer";
+import currWeatherReducer from "./currentWeather/currentWeatherSlice";
 
-const middlewares = [logger, thunk];
+const middlewares = [logger];
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
         currWeather: currWeatherReducer
     },
@@ -17,5 +15,4 @@ export type AppDispatch = typeof store.dispatch;
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export default store;
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { CustomIcon } from "../iconComponents/CustomIcon";
+import { useAppSelector, useAppDispatch } from "../hooks/storeHooks";
 
 const slideDown = keyframes`
   from{
@@ -77,9 +78,9 @@ const Description = styled.div`
   font-weight: 300;
 `;
 
-const CurrentWeatherInfo = ({ currWeather }: any) => {
-  const { city, country, date, description, icon, temp } =
-    currWeather.currWeather;
+const CurrentWeatherInfo = () => {
+  const getCurrWeather = useAppSelector((state) => state.currWeather);
+  const { city, country, date, description, icon, temp } = getCurrWeather;
   return (
     <CurrentWeatherResultWrapper>
       <DateLocationWrapper>
