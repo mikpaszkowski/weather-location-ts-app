@@ -19,7 +19,7 @@ export interface ICurrWeatherResponseContent {
     clouds: number
 }
 
-export const formattedResponse: Function = (data: any): ICurrWeatherResponseContent => {
+export const formatWeatherResponse: Function = (data: any): ICurrWeatherResponseContent => {
     return {
         city: data.name,
         date: getFormattedDate(),

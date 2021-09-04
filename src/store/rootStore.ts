@@ -1,12 +1,16 @@
 import { configureStore, applyMiddleware, Store, Action } from "@reduxjs/toolkit";
 import logger from "redux-logger"
 import currWeatherReducer from "./currentWeather/currentWeatherSlice";
+import geoLocationReducer from "./geoLocation/geoLocationSlice";
+import hourlyForecastReducer from "./hourlyForecast/hourlyForecastSlice"
 
 const middlewares = [logger];
 
 export const store = configureStore({
     reducer: {
-        currWeather: currWeatherReducer
+        currWeather: currWeatherReducer,
+        geoLocation: geoLocationReducer,
+        hourlyForecast: hourlyForecastReducer
     },
     middleware: middlewares
 });

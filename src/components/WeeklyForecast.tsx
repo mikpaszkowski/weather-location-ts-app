@@ -1,22 +1,23 @@
 import * as React from "react";
 import styled from "styled-components";
 import { ForecastDailyCard } from "./ForecastDailyCard";
+import { useAppSelector } from "../hooks/storeHooks";
+import { IHourlyForecast } from "../services/wetherAPI";
 
-const WeeklyForecastWrapper = styled.div`
+const HourlyForecastWrapper = styled.div`
+  display: flex;
   position: relative;
   width: 100%;
+  overflow-x: scroll;
 `;
 
-type WeeklyForecastProps = {
-  weeklyForecast: Array<Object | null>;
-};
-
-export const WeeklyForecast = ({ weeklyForecast }: WeeklyForecastProps) => {
+export const WeeklyForecast = () => {
+  const hourlyForecast = useAppSelector((state) => state.hourlyForecast);
   return (
-    <WeeklyForecastWrapper>
-      {weeklyForecast.map((forecast, index) => (
-        <ForecastDailyCard key={index} forecast={forecast} />
+    <HourlyForecastWrapper>
+      {hourlyForecast.map((forecast, index) => (
+        <ForecastDailyCard forecast={forecast} />
       ))}
-    </WeeklyForecastWrapper>
+    </HourlyForecastWrapper>
   );
 };

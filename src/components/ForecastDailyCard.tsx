@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { CustomIcon } from "../iconComponents/CustomIcon";
+import { IHourlyForecast } from "../services/wetherAPI";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -10,13 +11,14 @@ const CardWrapper = styled.div`
   padding: 4rem 6rem;
 `;
 
-type ForeCastCardProps = {
-  forecast: any;
+type Props = {
+  forecast: IHourlyForecast;
 };
 
-export const ForecastDailyCard = ({ forecast }: ForeCastCardProps) => {
-  const { dt_txt } = forecast;
+export const ForecastDailyCard = ({ forecast }: Props): JSX.Element => {
   return (
-    <CardWrapper>{/* <CustomIcon src={} alt="weather-icon"/> */}</CardWrapper>
+    <CardWrapper>
+      <CustomIcon src={forecast.icon} alt="weather-icon" />{" "}
+    </CardWrapper>
   );
 };

@@ -3,7 +3,6 @@ import { CurrentWeatherDetails } from "./CurrentWeatherDetails";
 import CurrentWeatherInfo from "./CurrentWeatherInfo";
 import { WeeklyForecast } from "./WeeklyForecast";
 import styled from "styled-components";
-import { formattedResponse } from "../utils/formatWeatherResponse";
 
 const WeatherResultWrapper = styled.div``;
 
@@ -18,7 +17,7 @@ const WeatherResult = ({ searchResult }: WeatherResultProp) => {
         <>
           {<CurrentWeatherInfo />}
           <CurrentWeatherDetails />
-          {/* <WeeklyForecast /> */}
+          <WeeklyForecast />
         </>
       ) : null}
     </WeatherResultWrapper>

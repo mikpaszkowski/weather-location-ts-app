@@ -79,8 +79,8 @@ const Description = styled.div`
 `;
 
 const CurrentWeatherInfo = () => {
-  const getCurrWeather = useAppSelector((state) => state.currWeather);
-  const { city, country, date, description, icon, temp } = getCurrWeather;
+  const currentWeather = useAppSelector((state) => state.currWeather);
+  const { city, country, date, description, icon, temp } = currentWeather;
   return (
     <CurrentWeatherResultWrapper>
       <DateLocationWrapper>

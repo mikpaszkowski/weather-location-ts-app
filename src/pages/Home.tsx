@@ -5,19 +5,22 @@ import WeatherResult from "../components/WeatherResult";
 import { NotFound } from "../components/MessageContainer";
 import { HeadlineSVG } from "../iconComponents/Headline";
 import { SearchBar } from "../components/SearchBar";
-import { formattedResponse } from "../utils/formatWeatherResponse";
 import {
   getCurrentWeatherByCityName,
-  getWeeklyForecastByCityName,
-  getWeeklyForecastByCoordinates,
+  getHourlyForecastByCoordinates,
 } from "../services/wetherAPI";
-import { getCoordinatesByQuery } from "../services/reverseAndForwardGeocodingAPI";
+import { getGeocodingDataByCityName } from "../services/reverseAndForwardGeocodingAPI";
 import { useDispatch, useSelector } from "react-redux";
 import {
   set,
   selectCurrentWeather,
 } from "../store/currentWeather/currentWeatherSlice";
+import {
+  setHourlyForecast,
+  hourlyForecastSelector,
+} from "../store/hourlyForecast/hourlyForecastSlice";
 import { useAppSelector, useAppDispatch } from "../hooks/storeHooks";
+import { getCoordinates } from "../utils/coordinates";
 
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
   display: block;
@@ -47,21 +50,22 @@ const Home = () => {
 
     try {
       const weatherResponse = await getCurrentWeatherByCityName(searchValue);
-      const forecastResponse = await getWeeklyForecastByCityName(searchValue);
-      // const coordinates = await getCoordinatesByQuery(searchValue);
-      // const forecast = await getWeeklyForecastByCoordinates(coordinates);
+      const geocodingData = await getGeocodingDataByCityName(searchValue);
+      const forecastResponse = await getHourlyForecastByCoordinates(
+        getCoordinates(geocodingData)
+      );
+      console.log(weatherResponse);
       setsearchResult(false);
-      if (weatherResponse.data && forecastResponse.data) {
-        console.log(getCurrWeather);
-        dispatch(set(formattedResponse(weatherResponse.data)));
-        console.log(getCurrWeather);
-        // setWeeklyForecast(forecast.);
-        setsearchResult(true);
+      if (weatherResponse && forecastResponse) {
+        dispatch(set(weatherResponse));
+        dispatch(setHourlyForecast(forecastResponse));
         setsearchError(false);
+        setsearchResult(true);
       }
     } catch (err) {
       setsearchError(true);
-      // console.log(err.message);
+      setsearchResult(false);
+      console.log(err);
     }
   };
 

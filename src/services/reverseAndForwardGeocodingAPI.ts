@@ -1,26 +1,5 @@
 import axios from "axios";
 
-export const getCoordinatesByQuery = async (
-  cityName: string
-): Promise<{ lat: number; long: number } | undefined> => {
-  try {
-    const res = await axios.get(
-      `http://api.positionstack.com/v1/forward
-      ? access_key = ${process.env.REACT_APP_REVERSE_GEOCODING_API_KEY}
-      & query = ${cityName.toLowerCase()}`
-    );
-    console.log(res)
-    if (res.status === 200) {
-      return {
-        lat: res.data.results[0].geometry.location.lat,
-        long: res.data.results[0].geometry.location.lng,
-      };
-    }
-  } catch (error) {
-      console.log(error);
-  }
-};
-
 export interface IGeocodingData {
   latitude: number,
   longitude: number,
@@ -46,12 +25,24 @@ export const getGeocodingDataByCoordinates = async (
 ): Promise<IGeocodingData | undefined> => {
   try {
     const res = await axios.get(
-      `http://api.positionstack.com/v1/forward
-      ? access_key = ${process.env.REACT_APP_REVERSE_GEOCODING_API_KEY}
+      `http://api.positionstack.com/v1/reverse
+      ? access_key = ${process.env.REACT_APP_GEOCODING_API_KEY}
       & query = ${lat},${long}`
     );
-    console.log(res.data)
     if (res.status === 200) return res.data;
+  } catch (error) {
+      console.log(error);
+  }
+};
+
+export const getGeocodingDataByCityName = async (
+  cityName: string
+): Promise<IGeocodingData | undefined> => {
+  try {
+    const res = await axios.get(
+      `http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_GEOCODING_API_KEY}&query=${cityName}`
+    );
+    if (res.status === 200) return res.data.data[0];
   } catch (error) {
       console.log(error);
   }
