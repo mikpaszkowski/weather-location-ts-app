@@ -1,14 +1,12 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { BiSearch } from "react-icons/bi";
-
 interface InputProps {
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   name: string;
 }
-
 interface FormProps {
   onSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
   searchResult?: boolean | null;
@@ -44,8 +42,6 @@ const fadeIn = keyframes`
         opacity: 1
     }
 `;
-//  transform: ${(props: FormProps) =>
-//     props.searchResult ? `translateY(-5rem)` : `translateY(5rem)`};
 
 const SearchBarWrapper = styled.form<FormProps>`
   margin: 0 auto;
@@ -114,6 +110,7 @@ export const SearchBar = ({
         name={name}
         value={value}
         placeholder={placeholder}
+        autoFocus
       />
       <SearchIcon />
     </SearchBarWrapper>
