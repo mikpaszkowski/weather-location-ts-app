@@ -9,6 +9,20 @@ const HourlyForecastWrapper = styled.div`
   position: relative;
   width: 100%;
   overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1rem;
+  }
 `;
 
 export const WeeklyForecast = () => {

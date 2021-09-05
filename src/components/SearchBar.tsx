@@ -22,7 +22,7 @@ const slideUp = keyframes`
         opacity: 0;
     }
     to{
-        transform: translateY(10rem);
+        transform: translateY(7rem);
         opacity: 1;
     }
 `;

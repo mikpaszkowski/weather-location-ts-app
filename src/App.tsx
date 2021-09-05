@@ -1,7 +1,7 @@
 import * as React from "react";
 import { HeadlineSmallSVG } from "./iconComponents/HeadlineSmallSVG";
 import styled, { createGlobalStyle } from "styled-components";
-import { Clock } from "./components/clock";
+import { Clock } from "./components/Clock";
 import Home from "./pages/Home";
 
 const GlobalStyle = createGlobalStyle`

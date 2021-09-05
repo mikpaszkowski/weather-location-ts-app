@@ -21,7 +21,7 @@ const ClockWrapper = styled.div`
     ${slidLeft} 1s ease 4s both
   `};
   & > p {
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 300;
   }
 `;

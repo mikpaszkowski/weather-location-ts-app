@@ -29,7 +29,7 @@ const getHourForecast = (data: IForecastResponse): IHourlyForecast => {
     return {
         icon: data.weather[0].icon,
         hour: getBasicTimeFormatFromTimestamp(data.dt),
-        temperature: data.temp,
+        temperature: Math.round(data.temp),
         precipitation: data.pop
     }
 }
