@@ -1,8 +1,8 @@
-import * as React from "react";
-import styled, { keyframes } from "styled-components";
-import { ForecastDailyCard } from "./ForecastDailyCard";
-import { useAppSelector } from "../hooks/storeHooks";
-import { IHourlyForecast } from "../services/wetherAPI";
+import * as React from 'react'
+import styled, { keyframes } from 'styled-components'
+import { ForecastDailyCard } from './ForecastDailyCard'
+import { useAppSelector } from '../hooks/storeHooks'
+import { IHourlyForecast } from '../services/api/wetherAPI'
 
 const slideDown = keyframes`
   from{
@@ -11,7 +11,7 @@ const slideDown = keyframes`
   to{
     opacity: 1;
   }
-`;
+`
 
 const HourlyForecastWrapper = styled.div`
   display: flex;
@@ -39,15 +39,15 @@ const HourlyForecastWrapper = styled.div`
     background-color: white;
     border-radius: 1rem;
   }
-`;
+`
 
 export const WeeklyForecast = () => {
-  const hourlyForecast = useAppSelector((state) => state.hourlyForecast);
+  const hourlyForecast = useAppSelector((state) => state.hourlyForecast)
   return (
     <HourlyForecastWrapper>
       {hourlyForecast.map((forecast, index) => (
         <ForecastDailyCard key={index} forecast={forecast} />
       ))}
     </HourlyForecastWrapper>
-  );
-};
+  )
+}

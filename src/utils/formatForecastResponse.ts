@@ -1,5 +1,4 @@
-/* eslint-disable camelcase */
-import {IHourlyForecast} from '../services/wetherAPI';
+import {IHourlyForecast} from '../services/api/wetherAPI';
 import {getBasicTimeFormatFromTimestamp} from './timeUtility';
 
 export interface IWeather {

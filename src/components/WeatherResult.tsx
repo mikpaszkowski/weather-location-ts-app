@@ -1,14 +1,14 @@
-import * as React from "react";
-import { CurrentWeatherDetails } from "./CurrentWeatherDetails";
-import CurrentWeatherInfo from "./CurrentWeatherInfo";
-import { WeeklyForecast } from "./WeeklyForecast";
-import styled from "styled-components";
+import * as React from 'react'
+import { CurrentWeatherDetails } from './CurrentWeatherDetails'
+import CurrentWeatherInfo from './CurrentWeatherInfo'
+import { WeeklyForecast } from './WeeklyForecast'
+import styled from 'styled-components'
 
-const WeatherResultWrapper = styled.div``;
+const WeatherResultWrapper = styled.div``
 
 type WeatherResultProp = {
-  searchResult: Object | null;
-};
+  searchResult: Object | null
+}
 
 const WeatherResult = ({ searchResult }: WeatherResultProp) => {
   return (
@@ -21,7 +21,7 @@ const WeatherResult = ({ searchResult }: WeatherResultProp) => {
         </>
       ) : null}
     </WeatherResultWrapper>
-  );
-};
+  )
+}
 
-export default WeatherResult;
+export default WeatherResult

@@ -1,15 +1,15 @@
-import * as React from "react";
-import styled, { css, keyframes } from "styled-components";
-import { BiSearch } from "react-icons/bi";
+import * as React from 'react'
+import styled, { css, keyframes } from 'styled-components'
+import { BiSearch } from 'react-icons/bi'
 interface InputProps {
-  placeholder: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-  name: string;
+  placeholder: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
+  name: string
 }
 interface FormProps {
-  onSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
-  searchResult?: boolean | null;
+  onSubmit: React.FormEventHandler<HTMLFormElement> | undefined
+  searchResult?: boolean | null
 }
 
 interface Props extends FormProps, InputProps {}
@@ -23,7 +23,7 @@ const slideUp = keyframes`
         transform: translateY(7rem);
         opacity: 1;
     }
-`;
+`
 
 const stretch = keyframes`
     from{
@@ -32,7 +32,7 @@ const stretch = keyframes`
     to{
         transform: scaleX(1)
     }
-`;
+`
 
 const fadeIn = keyframes`
     from{
@@ -41,7 +41,7 @@ const fadeIn = keyframes`
     to{
         opacity: 1
     }
-`;
+`
 
 const SearchBarWrapper = styled.form<FormProps>`
   margin: 0 auto;
@@ -54,7 +54,7 @@ const SearchBarWrapper = styled.form<FormProps>`
     ${slideUp} 3s cubic-bezier(0.2, 0.72, 0.01, 0.87) 3.5s both
   `};
   will-change: initial;
-`;
+`
 
 const SearchBarInput = styled.input<InputProps>`
   width: 100%;
@@ -84,7 +84,7 @@ const SearchBarInput = styled.input<InputProps>`
 
   &:hover {
   }
-`;
+`
 
 const SearchIcon = styled(BiSearch)`
   position: absolute;
@@ -93,7 +93,7 @@ const SearchIcon = styled(BiSearch)`
   left: 2.4rem;
   font-size: 3.5rem;
   color: #c5c5c5;
-`;
+`
 
 export const SearchBar = ({
   onSubmit,
@@ -101,7 +101,7 @@ export const SearchBar = ({
   name,
   value,
   placeholder,
-  searchResult,
+  searchResult
 }: Props) => {
   return (
     <SearchBarWrapper onSubmit={onSubmit} searchResult={searchResult}>
@@ -114,5 +114,5 @@ export const SearchBar = ({
       />
       <SearchIcon />
     </SearchBarWrapper>
-  );
-};
+  )
+}

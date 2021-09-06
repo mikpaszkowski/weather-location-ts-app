@@ -1,7 +1,7 @@
-import * as React from "react";
-import styled, { css, keyframes } from "styled-components";
-import { CustomIcon } from "../iconComponents/CustomIcon";
-import { useAppSelector, useAppDispatch } from "../hooks/storeHooks";
+import * as React from 'react';
+import styled, { css, keyframes } from 'styled-components';
+import { CustomIcon } from '../iconComponents/CustomIcon';
+import { useAppSelector, useAppDispatch } from '../hooks/storeHooks';
 
 const slideDown = keyframes`
   from{
@@ -20,7 +20,7 @@ const CurrentWeatherResultWrapper = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 0.5rem;
   margin: 9rem 0 2.5rem 0;
   padding: 0 4rem;
@@ -33,7 +33,7 @@ const CurrentWeatherResultWrapper = styled.div`
   animation-delay: 0.4s;
   animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
   animation-fill-mode: both;
-  background-color: rgba(255, 255, 255, 30%);
+  background-color: #9c9c9c78;
   backdrop-filter: blur(4px);
   will-change: transform;
 `;
@@ -89,10 +89,10 @@ const CurrentWeatherInfo = () => {
         </h1>
         <span>{`${date}`}</span>
       </DateLocationWrapper>
-      <CustomIcon alt="weatherIcon" src={icon} width="35rem" />
+      <CustomIcon alt='weatherIcon' src={icon} width='35rem' />
       <Temp>
         <span>{temp}</span>
-        <CustomIcon alt="weatherIcon" src="celsius" width="9rem" />
+        <CustomIcon alt='weatherIcon' src='celsius' width='9rem' />
         <Description>{description}</Description>
       </Temp>
     </CurrentWeatherResultWrapper>

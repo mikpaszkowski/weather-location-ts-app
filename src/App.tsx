@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
-import * as React from "react";
-import { HeadlineSmallSVG } from "./iconComponents/HeadlineSmallSVG";
-import styled, { createGlobalStyle } from "styled-components";
-import Home from "./pages/Home";
-import { Clock } from "./components/Clock";
+import * as React from 'react';
+import { HeadlineSmallSVG } from './iconComponents/HeadlineSmallSVG';
+import styled, { createGlobalStyle } from 'styled-components';
+import Home from './pages/Home';
+import { Clock } from './components/clock';
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
       top: 0;
       left: 0;
       z-index: -1;
-      background-image: url("${process.env.PUBLIC_URL}/backgrounds-svg/night_blue_sky_lake.svg");
+      background-image: url("${process.env.PUBLIC_URL}/backgrounds-svg/23-02-moon.svg");
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -49,7 +49,7 @@ const AppWrapper = styled.div`
 const App = () => {
   return (
     <React.Fragment>
-      <HeadlineSmallSVG staticMode={true} svgWidth="30rem" svgHeight="10rem" />
+      <HeadlineSmallSVG staticMode={true} svgWidth='30rem' svgHeight='10rem' />
 
       <AppWrapper>
         <Clock />

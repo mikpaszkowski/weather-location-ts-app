@@ -1,14 +1,14 @@
-import * as React from "react";
-import styled from "styled-components";
+import * as React from 'react'
+import styled from 'styled-components'
 
 const IMG = styled.img`
-  width: ${(props: IconProps) => (props.width ? props.width : "10rem")};
-`;
+  width: ${(props: IconProps) => (props.width ? props.width : '10rem')};
+`
 
 interface IconProps {
-  width?: string;
-  alt: string;
-  src: string;
+  width?: string
+  alt: string
+  src: string
 }
 
 export const CustomIcon = ({ src, alt, width }: IconProps) => {
@@ -18,5 +18,5 @@ export const CustomIcon = ({ src, alt, width }: IconProps) => {
       alt={alt}
       width={width}
     />
-  );
-};
+  )
+}

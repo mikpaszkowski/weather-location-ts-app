@@ -1,7 +1,7 @@
-import * as React from "react";
-import styled, { keyframes } from "styled-components";
-import { IHourlyForecast } from "../services/wetherAPI";
-import { CustomIcon } from "../iconComponents/CustomIcon";
+import * as React from 'react';
+import styled, { keyframes } from 'styled-components';
+import { IHourlyForecast } from '../services/api/wetherAPI';
+import { CustomIcon } from '../iconComponents/CustomIcon';
 
 const CardWrapper = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ const CardWrapper = styled.div`
   align-items: stretch;
   padding: 2rem 3rem;
   margin: 1rem;
-  background-color: rgba(255, 255, 255, 30%);
+  background-color: #90909078;
   backdrop-filter: blur(4px);
   text-align: center;
   border-radius: 1.5rem;
@@ -58,13 +58,13 @@ export const ForecastDailyCard = ({ forecast }: Props): JSX.Element => {
   return (
     <CardWrapper>
       <Hour>{forecast.hour}</Hour>
-      <CustomIcon src={forecast.icon} alt="weather-icon" />{" "}
+      <CustomIcon src={forecast.icon} alt='weather-icon' />{' '}
       <Temp>
         <span>{forecast.temperature}</span>
-        <CustomIcon alt="weatherIcon" src="celsius" width="3rem" />
+        <CustomIcon alt='weatherIcon' src='celsius' width='3rem' />
       </Temp>
       <RaindropPercentage>
-        <CustomIcon alt="weatherIcon" src="raindrop" width="4.5rem" />
+        <CustomIcon alt='weatherIcon' src='raindrop' width='4.5rem' />
         <Percipitation>{`${forecast.precipitation}%`}</Percipitation>
       </RaindropPercentage>
     </CardWrapper>
