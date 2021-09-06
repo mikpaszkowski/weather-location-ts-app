@@ -1,18 +1,18 @@
-import axios from "axios";
-import { formatWeatherResponse } from "../utils/formatWeatherResponse";
-import { formatHourlyForecastResponse } from "../utils/formatForecastResponse";
+import axios from 'axios';
+import {formatWeatherResponse} from '../utils/formatWeatherResponse';
+import {formatHourlyForecastResponse} from '../utils/formatForecastResponse';
 
 export const getCurrentWeatherByCityName: Function = async (
-  cityName: string,
-  units: string = "metric",
-  lang: string = "en"
+    cityName: string,
+    units: string = 'metric',
+    lang: string = 'en',
 ) => {
   const response = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${
-      process.env.REACT_APP_WEATHER_API_KEY
-    }&units=${units}&lang=${lang}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${
+        process.env.REACT_APP_WEATHER_API_KEY
+      }&units=${units}&lang=${lang}`,
   );
-  console.log(response)
+  console.log(response);
   return formatWeatherResponse(response.data);
 };
 
@@ -29,13 +29,12 @@ export interface IHourlyForecast {
 }
 
 export const getHourlyForecastByCoordinates: Function = async (
-  coordinates: ICoordinates,
-  units: string = "metric",
-  lang: string = "en"
+    coordinates: ICoordinates,
+    units: string = 'metric',
+    lang: string = 'en',
 ): Promise<Array<IHourlyForecast>> => {
-
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,daily`
-    );
-    return formatHourlyForecastResponse(response.data.hourly)
+  const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,daily`,
+  );
+  return formatHourlyForecastResponse(response.data.hourly);
 };
