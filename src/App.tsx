@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import * as React from 'react';
-import { HeadlineSmallSVG } from './iconComponents/HeadlineSmallSVG';
 import styled, { createGlobalStyle } from 'styled-components';
+import { HeadlineSmallSVG } from './iconComponents/HeadlineSmallSVG';
 import Home from './pages/Home';
 import { Clock } from './components/clock';
 
@@ -37,27 +37,27 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppWrapper = styled.div`
-  display: block;
-  max-width: 150rem;
-  margin: 0 auto;
-  padding: 0 10rem;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
+	display: block;
+	max-width: 150rem;
+	margin: 0 auto;
+	padding: 0 10rem;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
 `;
 
 const App = () => {
-  return (
-    <React.Fragment>
-      <HeadlineSmallSVG staticMode={true} svgWidth='30rem' svgHeight='10rem' />
+	return (
+		<>
+			<HeadlineSmallSVG staticMode svgWidth="30rem" svgHeight="10rem" />
 
-      <AppWrapper>
-        <Clock />
-        <Home />
-      </AppWrapper>
-      <GlobalStyle />
-    </React.Fragment>
-  );
+			<AppWrapper>
+				<Clock />
+				<Home />
+			</AppWrapper>
+			<GlobalStyle />
+		</>
+	);
 };
 
 export default App;
