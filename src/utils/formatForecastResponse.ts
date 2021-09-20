@@ -1,4 +1,4 @@
-import { IDailyForecast, IHourlyForecast } from '../services/api/wetherAPI';
+import { IHourlyForecastResponse } from '../services/api/wetherAPI';
 import { getBasicTimeFormatFromTimestamp } from './timeUtility';
 
 export interface IWeather {
@@ -25,17 +25,17 @@ export interface IForecastResponse {
 	wind_speed: number;
 }
 
-const getHourForecast = (data: IForecastResponse): IHourlyForecast => {
+const getHourForecast = (data: IForecastResponse): IHourlyForecastResponse => {
 	return {
 		icon: data.weather[0].icon,
 		hour: getBasicTimeFormatFromTimestamp(data.dt),
 		temperature: Math.round(data.temp),
-		precipitation: data.pop * 100,
+		precipitation: Math.floor(data.pop * 100),
 	};
 };
 
 export const formatHourlyForecastResponse: Function = (
 	data: Array<IForecastResponse>
-): Array<IHourlyForecast> => {
+): Array<IHourlyForecastResponse> => {
 	return data.map((forecast) => getHourForecast(forecast));
 };

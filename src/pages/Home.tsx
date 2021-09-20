@@ -5,20 +5,10 @@ import WeatherResult from '../components/WeatherResult';
 import { NotFound } from '../components/MessageContainer';
 import { HeadlineSVG } from '../iconComponents/Headline';
 import { SearchBar } from '../components/SearchBar';
-import weatherService from '../services/api/wetherAPI';
-import { getGeocodingDataByCityName } from '../services/api/reverseAndForwardGeocodingAPI';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-	selectCurrentWeather,
-	fetchCurrWeather,
-} from '../store/currentWeather/currentWeatherSlice';
-import {
-	setHourlyForecast,
-	hourlyForecastSelector,
-} from '../store/hourlyForecast/hourlyForecastSlice';
-import { setDailyForecast } from '../store/dailyForecast/dailyForecastSlice';
-import { useAppSelector, useAppDispatch } from '../hooks/storeHooks';
-import { getCoordinates } from '../utils/coordinates';
+import { useDispatch } from 'react-redux';
+import { fetchCurrWeather } from '../store/currentWeather/currentWeatherSlice';
+import { fetchHourlyForecast } from '../store/hourlyForecast/hourlyForecastSlice';
+import { fetchDailyForecast } from '../store/dailyForecast/dailyForecastSlice';
 
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
 	display: block;
@@ -34,7 +24,6 @@ const { useState } = React;
 
 const Home = () => {
 	const dispatch = useDispatch();
-	const getCurrWeather = useAppSelector(selectCurrentWeather);
 	const [searchValue, setSearchValue] = useState<string>('');
 	const [searchResult, setsearchResult] = useState<boolean | null>(null);
 	const [searchError, setsearchError] = useState(false);
@@ -47,21 +36,11 @@ const Home = () => {
 		e.preventDefault();
 
 		try {
-			// const weatherResponse = await getCurrentWeatherByCityName(searchValue);
-			const geocodingData = await getGeocodingDataByCityName(searchValue);
-			console.log(geocodingData);
-			const forecastResponse =
-				await weatherService.getHourlyForecastByCoordinates(
-					getCoordinates(geocodingData)
-				);
-			const dailyForecast = await weatherService.getDailyForecastByCoordinates(
-				getCoordinates(geocodingData)
-			);
+			dispatch(fetchDailyForecast(searchValue));
+			dispatch(fetchHourlyForecast(searchValue));
 			dispatch(fetchCurrWeather(searchValue));
 			setsearchResult(false);
-			if (forecastResponse) {
-				dispatch(setHourlyForecast(forecastResponse));
-				dispatch(setDailyForecast(dailyForecast));
+			if (true) {
 				setsearchError(false);
 				setsearchResult(true);
 			}

@@ -1,12 +1,15 @@
 import axios from 'axios';
-import { formatWeatherResponse } from '../../utils/formatWeatherResponse';
+import {
+	formatWeatherResponse,
+	ICurrWeatherResponseContent,
+} from '../../utils/formatWeatherResponse';
 import { formatHourlyForecastResponse } from '../../utils/formatForecastResponse';
 
 const getCurrentWeatherByCityName: Function = async (
 	cityName: string,
 	units: string = 'metric',
 	lang: string = 'en'
-) => {
+): Promise<ICurrWeatherResponseContent> => {
 	const response = await axios.get(
 		`https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${
 			process.env.REACT_APP_WEATHER_API_KEY
@@ -21,7 +24,7 @@ export interface ICoordinates {
 	long: number;
 }
 
-export interface IHourlyForecast {
+export interface IHourlyForecastResponse {
 	icon: string;
 	hour: string;
 	temperature: number;
@@ -32,14 +35,14 @@ const getHourlyForecastByCoordinates: Function = async (
 	coordinates: ICoordinates,
 	units: string = 'metric',
 	lang: string = 'en'
-): Promise<Array<IHourlyForecast>> => {
+): Promise<Array<IHourlyForecastResponse>> => {
 	const response = await axios.get(
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,daily`
 	);
 	return formatHourlyForecastResponse(response.data.hourly);
 };
 
-export interface IDailyForecast {
+export interface IDailyForecastResponse {
 	dt: number;
 	sunrise: number;
 	sunset: number;
@@ -87,7 +90,7 @@ const getDailyForecastByCoordinates: Function = async (
 	coordinates: ICoordinates,
 	units: string = 'metric',
 	lang: string = 'eng'
-): Promise<Array<IDailyForecast>> => {
+): Promise<Array<IDailyForecastResponse>> => {
 	const response = await axios.get(
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,hourly`
 	);

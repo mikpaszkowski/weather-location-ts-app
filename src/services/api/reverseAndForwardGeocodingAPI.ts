@@ -20,7 +20,7 @@ export interface IGeocodingData {
 	map_url: string;
 }
 
-export const getGeocodingDataByCoordinates = async (
+const getGeocodingDataByCoordinates = async (
 	lat: number,
 	long: number
 ): Promise<IGeocodingData | undefined> => {
@@ -36,7 +36,7 @@ export const getGeocodingDataByCoordinates = async (
 	}
 };
 
-export const getGeocodingDataByCityName = async (
+const getGeocodingDataByCityName = async (
 	cityName: string
 ): Promise<IGeocodingData | undefined> => {
 	try {
@@ -49,3 +49,10 @@ export const getGeocodingDataByCityName = async (
 		console.log(error);
 	}
 };
+
+const geocodingService = {
+	getGeocodingDataByCityName,
+	getGeocodingDataByCoordinates,
+};
+
+export default geocodingService;
