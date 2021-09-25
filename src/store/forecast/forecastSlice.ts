@@ -88,28 +88,37 @@ export interface IForecast {
 	searchError: boolean;
 }
 
+export type ForecastDispatchError = {
+	errorMessage: string;
+};
+
 export const fetchForecast = createAsyncThunk<
 	IForecast,
 	string,
 	{
 		dispatch: AppDispatch;
 		state: RootState;
+		rejectValue: ForecastDispatchError;
 	}
 >('forecast/fetch', async (cityName, thunkAPI) => {
-	const geocodingData = await geocodingService.getGeocodingDataByCityName(
-		cityName
-	);
-	const response = await weatherService.getAllTypeForecast(
-		getCoordinates(geocodingData),
-		cityName
-	);
-	return {
-		current: response.current,
-		daily: response.daily,
-		hourly: response.hourly,
-		loading: false,
-		searchError: false,
-	};
+	try {
+		const geocodingData = await geocodingService.getGeocodingDataByCityName(
+			cityName
+		);
+		const response = await weatherService.getAllTypeForecast(
+			getCoordinates(geocodingData),
+			cityName
+		);
+		return {
+			current: response.current,
+			daily: response.daily,
+			hourly: response.hourly,
+			loading: false,
+			searchError: false,
+		};
+	} catch (err) {
+		return thunkAPI.rejectWithValue(err as ForecastDispatchError);
+	}
 });
 
 export const currWeatherSlice = createSlice({

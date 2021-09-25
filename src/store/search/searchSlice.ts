@@ -1,16 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../rootStore';
 
 export interface ISearch {
 	searchRunning: boolean;
-	searchError: boolean;
+	errorMessage: string;
 }
 
 export const initialState: ISearch = {
 	searchRunning: false,
-	searchError: false,
+	errorMessage: '',
 };
 
-// export const searchSlice = createSlice({
-// 	name: 'search',
-// 	initialState,
-// });
+export const searchSlice = createSlice({
+	name: 'search',
+	initialState,
+	reducers: {
+		setSearchInfo: (state, { payload }: PayloadAction<ISearch>) => payload,
+	},
+});
+
+export const { setSearchInfo } = searchSlice.actions;
+export const selectSearchRunning = (state: RootState) =>
+	state.searchInfo.searchRunning;
+export const selectErrorMessage = (state: RootState) =>
+	state.searchInfo.errorMessage;
+export default searchSlice.reducer;

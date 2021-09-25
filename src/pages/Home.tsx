@@ -7,6 +7,10 @@ import { HeadlineSVG } from '../iconComponents/Headline';
 import { SearchBar } from '../components/SearchBar';
 import { fetchForecast } from '../store/forecast/forecastSlice';
 import { useThunkAppDispatch } from '../hooks/storeHooks';
+import { useAppDispatch } from '../hooks/storeHooks';
+import { setSearchInfo } from '../store/search/searchSlice';
+import { useAppSelector } from '../hooks/storeHooks';
+import { selectSearchRunning } from '../store/search/searchSlice';
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
 	display: block;
 	height: 5rem;
@@ -20,23 +24,22 @@ const HomeWrapper = styled.div``;
 const { useState } = React;
 
 const Home = () => {
-	const dispatch = useThunkAppDispatch();
+	const dispatchThunk = useThunkAppDispatch();
+	const dispatch = useAppDispatch();
+	const searchResult = useAppSelector(selectSearchRunning);
 	const [searchValue, setSearchValue] = useState<string>('');
-	const [searchResult, setsearchResult] = useState<boolean | null>(null);
-
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setSearchValue(event.target.value);
 	};
 
 	const handleSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		dispatch(fetchForecast(searchValue))
+		dispatchThunk(fetchForecast(searchValue))
 			.then(() => {
-				setsearchResult(true);
+				dispatch(setSearchInfo({ searchRunning: true, errorMessage: '' }));
 			})
 			.catch((err) => {
-				setsearchResult(false);
-				console.log(err);
+				dispatch(setSearchInfo({ searchRunning: false, errorMessage: err }));
 			});
 	};
 

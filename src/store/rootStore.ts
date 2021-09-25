@@ -3,6 +3,7 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import logger from 'redux-logger';
 import currWeatherReducer from './forecast/forecastSlice';
 import geoLocationReducer from './geoLocation/geoLocationSlice';
+import searchInfoReducer from './search/searchSlice';
 
 const middlewares = [logger, thunk];
 
@@ -10,6 +11,7 @@ export const store = configureStore({
 	reducer: {
 		forecast: currWeatherReducer,
 		geoLocation: geoLocationReducer,
+		searchInfo: searchInfoReducer,
 	},
 	middleware: middlewares,
 });
