@@ -5,11 +5,8 @@ import WeatherResult from '../components/WeatherResult';
 import { NotFound } from '../components/MessageContainer';
 import { HeadlineSVG } from '../iconComponents/Headline';
 import { SearchBar } from '../components/SearchBar';
-import { useDispatch } from 'react-redux';
-import { fetchCurrWeather } from '../store/currentWeather/currentWeatherSlice';
-import { fetchHourlyForecast } from '../store/hourlyForecast/hourlyForecastSlice';
-import { fetchDailyForecast } from '../store/dailyForecast/dailyForecastSlice';
-
+import { fetchForecast } from '../store/forecast/forecastSlice';
+import { useThunkAppDispatch } from '../hooks/storeHooks';
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
 	display: block;
 	height: 5rem;
@@ -23,10 +20,9 @@ const HomeWrapper = styled.div``;
 const { useState } = React;
 
 const Home = () => {
-	const dispatch = useDispatch();
+	const dispatch = useThunkAppDispatch();
 	const [searchValue, setSearchValue] = useState<string>('');
 	const [searchResult, setsearchResult] = useState<boolean | null>(null);
-	const [searchError, setsearchError] = useState(false);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setSearchValue(event.target.value);
@@ -34,21 +30,14 @@ const Home = () => {
 
 	const handleSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
-
-		try {
-			dispatch(fetchDailyForecast(searchValue));
-			dispatch(fetchHourlyForecast(searchValue));
-			dispatch(fetchCurrWeather(searchValue));
-			setsearchResult(false);
-			if (true) {
-				setsearchError(false);
+		dispatch(fetchForecast(searchValue))
+			.then(() => {
 				setsearchResult(true);
-			}
-		} catch (err) {
-			setsearchError(true);
-			setsearchResult(false);
-			console.log(err);
-		}
+			})
+			.catch((err) => {
+				setsearchResult(false);
+				console.log(err);
+			});
 	};
 
 	return (
@@ -67,11 +56,10 @@ const Home = () => {
 				searchResult={searchResult}
 			/>
 			<NotFound
-				active={searchError}
 				message="The specified city was not found ..."
 				icon={StyledNotFoundIcon}
 			/>
-			<WeatherResult searchResult={searchResult} />
+			{searchResult ? <WeatherResult /> : null}
 		</HomeWrapper>
 	);
 };

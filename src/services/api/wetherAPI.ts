@@ -4,6 +4,7 @@ import {
 	ICurrWeatherResponseContent,
 } from '../../utils/formatWeatherResponse';
 import { formatHourlyForecastResponse } from '../../utils/formatForecastResponse';
+import { IForecast } from '../../store/forecast/forecastSlice';
 
 const getCurrentWeatherByCityName: Function = async (
 	cityName: string,
@@ -15,8 +16,12 @@ const getCurrentWeatherByCityName: Function = async (
 			process.env.REACT_APP_WEATHER_API_KEY
 		}&units=${units}&lang=${lang}`
 	);
-	console.log(response);
-	return formatWeatherResponse(response.data);
+	if (response.status === 200) {
+		return formatWeatherResponse(response.data);
+	}
+	throw new Error(
+		`Current weather search failure with status: ${response.status}`
+	);
 };
 
 export interface ICoordinates {
@@ -39,7 +44,12 @@ const getHourlyForecastByCoordinates: Function = async (
 	const response = await axios.get(
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,daily`
 	);
-	return formatHourlyForecastResponse(response.data.hourly);
+	if (response.status === 200) {
+		return formatHourlyForecastResponse(response.data.hourly);
+	}
+	throw new Error(
+		`Hourly forecast search failure with status: ${response.status}`
+	);
 };
 
 export interface IDailyForecastResponse {
@@ -94,13 +104,39 @@ const getDailyForecastByCoordinates: Function = async (
 	const response = await axios.get(
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,hourly`
 	);
-	return response.data.daily;
+	if (response.status === 200) {
+		return response.data.daily;
+	}
+	throw new Error(
+		`Daily forecast search failure with status: ${response.status}`
+	);
+};
+
+const getAllTypeForecast: Function = async (
+	coordinates: ICoordinates,
+	cityName: string
+): Promise<IForecast> => {
+	try {
+		const current = await getCurrentWeatherByCityName(cityName);
+		const daily = await getDailyForecastByCoordinates(coordinates);
+		const hourly = await getHourlyForecastByCoordinates(coordinates);
+		return {
+			current: current,
+			daily: daily,
+			hourly: hourly,
+			loading: false,
+			searchError: false,
+		};
+	} catch (err) {
+		throw new Error(`Forecast search failure with status. ${err}`);
+	}
 };
 
 const weatherService = {
 	getCurrentWeatherByCityName,
 	getDailyForecastByCoordinates,
 	getHourlyForecastByCoordinates,
+	getAllTypeForecast,
 };
 
 export default weatherService;

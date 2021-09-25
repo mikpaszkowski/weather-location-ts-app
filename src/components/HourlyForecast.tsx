@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { ForecastDailyCard } from './ForecastDailyCard';
+import { HourlyForecastCard } from './HourlyForecastCard';
 import { useAppSelector } from '../hooks/storeHooks';
-import { hourlyForecastSelector } from '../store/hourlyForecast/hourlyForecastSlice';
+import { selectHourlyForecast } from '../store/forecast/forecastSlice';
 
 const slideDown = keyframes`
   from{
@@ -42,11 +42,11 @@ const HourlyForecastWrapper = styled.div`
 `;
 
 export const HourlyForecast = () => {
-	const hourlyForecast = useAppSelector(hourlyForecastSelector);
+	const hourlyForecast = useAppSelector(selectHourlyForecast);
 	return (
 		<HourlyForecastWrapper>
 			{hourlyForecast.map((forecast, index) => (
-				<ForecastDailyCard key={index} forecast={forecast} />
+				<HourlyForecastCard key={index} forecast={forecast} />
 			))}
 		</HourlyForecastWrapper>
 	);

@@ -3,24 +3,32 @@ import { CurrentWeatherDetails } from './CurrentWeatherDetails';
 import CurrentWeatherInfo from './CurrentWeatherInfo';
 import { HourlyForecast } from './HourlyForecast';
 import styled from 'styled-components';
+import { selectForecastLoading } from '../store/forecast/forecastSlice';
+import { useAppSelector } from '../hooks/storeHooks';
+import { Loader } from './Loader';
+import { selectSearchError } from '../store/forecast/forecastSlice';
 
 const WeatherResultWrapper = styled.div``;
 
-type WeatherResultProp = {
-	searchResult: Object | null;
-};
-
-const WeatherResult = ({ searchResult }: WeatherResultProp) => {
+const WeatherResult = () => {
+	const isForecastLoading = useAppSelector(selectForecastLoading);
+	const errorOccured = useAppSelector(selectSearchError);
 	return (
-		<WeatherResultWrapper>
-			{searchResult ? (
-				<>
-					{<CurrentWeatherInfo />}
-					<CurrentWeatherDetails />
-					<HourlyForecast />
-				</>
+		<>
+			{!errorOccured ? (
+				<WeatherResultWrapper>
+					{isForecastLoading ? (
+						<Loader />
+					) : (
+						<>
+							{<CurrentWeatherInfo />}
+							<CurrentWeatherDetails />
+							<HourlyForecast />
+						</>
+					)}
+				</WeatherResultWrapper>
 			) : null}
-		</WeatherResultWrapper>
+		</>
 	);
 };
 

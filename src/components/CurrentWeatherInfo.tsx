@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { CustomIcon } from '../iconComponents/CustomIcon';
 import { useAppSelector } from '../hooks/storeHooks';
-import { selectCurrentWeather } from '../store/currentWeather/currentWeatherSlice';
+import { selectCurrentWeather } from '../store/forecast/forecastSlice';
 
 const slideDown = keyframes`
   from{

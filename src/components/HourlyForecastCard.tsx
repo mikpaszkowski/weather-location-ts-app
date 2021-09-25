@@ -54,7 +54,7 @@ type Props = {
 	forecast: IHourlyForecastResponse;
 };
 
-export const ForecastDailyCard = ({ forecast }: Props): JSX.Element => {
+export const HourlyForecastCard = ({ forecast }: Props): JSX.Element => {
 	return (
 		<CardWrapper>
 			<Hour>{forecast.hour}</Hour>
