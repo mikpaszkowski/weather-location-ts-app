@@ -1,5 +1,14 @@
-import { IHourlyForecastResponse } from '../services/api/wetherAPI';
-import { getBasicTimeFormatFromTimestamp } from './timeUtility';
+import {
+	IDailyForecastResponse,
+	IDailyFormattedForecastResponse,
+	IHourlyForecastResponse,
+	TempDailyType,
+} from '../services/api/wetherAPI';
+import {
+	getBasicTimeFormatFromTimestamp,
+	getDayFromTimeStamp,
+	getFormattedDate,
+} from './timeUtility';
 
 export interface IWeather {
 	description: string;
@@ -38,4 +47,46 @@ export const formatHourlyForecastResponse: Function = (
 	data: Array<IForecastResponse>
 ): Array<IHourlyForecastResponse> => {
 	return data.map((forecast) => getHourForecast(forecast));
+};
+
+const formatDateOfDailyForecastResponse: Function = (
+	data: IDailyForecastResponse
+): IDailyFormattedForecastResponse => {
+	return {
+		date: getDayFromTimeStamp(data.dt),
+		sunrise: getBasicTimeFormatFromTimestamp(data.sunrise),
+		sunset: getBasicTimeFormatFromTimestamp(data.sunset),
+		moonrise: getBasicTimeFormatFromTimestamp(data.moonrise),
+		moonset: getBasicTimeFormatFromTimestamp(data.moonset),
+		moon_phase: Math.floor(data.moon_phase * 100),
+		temp: formatTempData(data.temp),
+		feelsLike: data.feelsLike,
+		pressure: data.pressure,
+		humidity: data.humidity,
+		dew_point: data.dew_point,
+		wind_speed: data.wind_speed,
+		wind_deg: data.wind_deg,
+		weather: data.weather,
+		clouds: data.clouds,
+		precipitation: Math.floor(data.pop * 100),
+		rain: data.rain,
+		uvi: data.uvi,
+	};
+};
+
+export const formatDailyForecastResponse: Function = (
+	data: Array<IDailyForecastResponse>
+): Array<IDailyFormattedForecastResponse> => {
+	return data.map((forecast) => formatDateOfDailyForecastResponse(forecast));
+};
+
+const formatTempData: Function = (data: TempDailyType): TempDailyType => {
+	return {
+		day: Math.round(data.day),
+		min: Math.round(data.min),
+		max: Math.round(data.max),
+		night: Math.round(data.night),
+		eve: Math.round(data.eve),
+		morn: Math.round(data.morn),
+	};
 };

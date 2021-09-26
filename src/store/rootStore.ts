@@ -4,6 +4,7 @@ import logger from 'redux-logger';
 import currWeatherReducer from './forecast/forecastSlice';
 import geoLocationReducer from './geoLocation/geoLocationSlice';
 import searchInfoReducer from './search/searchSlice';
+import weatherDisplayReducer from './weatherDisplay/weatherDisplaySettingSlice';
 
 const middlewares = [logger, thunk];
 
@@ -12,6 +13,7 @@ export const store = configureStore({
 		forecast: currWeatherReducer,
 		geoLocation: geoLocationReducer,
 		searchInfo: searchInfoReducer,
+		weatherDisplaySetting: weatherDisplayReducer,
 	},
 	middleware: middlewares,
 });

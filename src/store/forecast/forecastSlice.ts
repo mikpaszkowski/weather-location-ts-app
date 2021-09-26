@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IDailyForecastResponse } from '../../services/api/wetherAPI';
+import { IDailyFormattedForecastResponse } from '../../services/api/wetherAPI';
 import { AppDispatch, RootState } from '../rootStore';
 import { ICurrWeatherResponseContent } from '../../utils/formatWeatherResponse';
 import weatherService, {
@@ -29,11 +29,11 @@ export const initialState: IForecast = {
 	},
 	daily: [
 		{
-			dt: 0,
-			sunrise: 0,
-			sunset: 0,
-			moonrise: 0,
-			moonset: 0,
+			date: '',
+			sunrise: '',
+			sunset: '0',
+			moonrise: '0',
+			moonset: '0',
 			moon_phase: 0,
 			temp: {
 				day: 0,
@@ -63,7 +63,7 @@ export const initialState: IForecast = {
 				},
 			],
 			clouds: 0,
-			pop: 0,
+			precipitation: 0,
 			rain: 0,
 			uvi: 0,
 		},
@@ -82,7 +82,7 @@ export const initialState: IForecast = {
 
 export interface IForecast {
 	current: ICurrWeatherResponseContent;
-	daily: Array<IDailyForecastResponse>;
+	daily: Array<IDailyFormattedForecastResponse>;
 	hourly: Array<IHourlyForecastResponse>;
 	loading: boolean;
 	searchError: boolean;

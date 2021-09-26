@@ -28,6 +28,7 @@ const Home = () => {
 	const dispatch = useAppDispatch();
 	const searchResult = useAppSelector(selectSearchRunning);
 	const [searchValue, setSearchValue] = useState<string>('');
+	const [entryView, setEntryView] = useState<boolean>(true);
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		setSearchValue(event.target.value);
 	};
@@ -62,7 +63,7 @@ const Home = () => {
 				message="The specified city was not found ..."
 				icon={StyledNotFoundIcon}
 			/>
-			{searchResult ? <WeatherResult /> : null}
+			{searchResult ? <WeatherResult entryView={entryView} /> : null}
 		</HomeWrapper>
 	);
 };

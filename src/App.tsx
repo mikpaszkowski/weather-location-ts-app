@@ -38,12 +38,11 @@ const GlobalStyle = createGlobalStyle`
 
 const AppWrapper = styled.div`
 	display: block;
-	max-width: 150rem;
+	max-width: 120rem;
 	margin: 0 auto;
 	padding: 0 10rem;
 	height: 100vh;
 	position: relative;
-	overflow: hidden;
 `;
 
 const App = () => {

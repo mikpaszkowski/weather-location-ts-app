@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { IHourlyForecastResponse } from '../services/api/wetherAPI';
 import { CustomIcon } from '../iconComponents/CustomIcon';
+import { RaindropPercentage } from './RaindropPercentage';
 
 const CardWrapper = styled.div`
 	display: flex;
@@ -10,10 +11,19 @@ const CardWrapper = styled.div`
 	align-items: stretch;
 	padding: 2rem 3rem;
 	margin: 1rem;
-	background-color: #90909078;
+	background-color: #616161c0;
 	backdrop-filter: blur(4px);
 	text-align: center;
 	border-radius: 1.5rem;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		background-color: #272727;
+		box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+			rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+			rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+	}
 `;
 
 const Temp = styled.div`
@@ -39,17 +49,6 @@ const Hour = styled.span`
 	font-weight: 400;
 `;
 
-const RaindropPercentage = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-`;
-
-const Percipitation = styled.span`
-	font-size: 1.8rem;
-	padding: 1rem 0 1rem 0;
-`;
-
 type Props = {
 	forecast: IHourlyForecastResponse;
 };
@@ -60,13 +59,12 @@ export const HourlyForecastCard = ({ forecast }: Props): JSX.Element => {
 			<Hour>{forecast.hour}</Hour>
 			<CustomIcon src={forecast.icon} alt="weather-icon" />{' '}
 			<Temp>
-				<span>{forecast.temperature}</span>
-				<CustomIcon alt="weatherIcon" src="celsius" width="3rem" />
+				<span>{`${forecast.temperature}\u00b0C`}</span>
 			</Temp>
-			<RaindropPercentage>
-				<CustomIcon alt="weatherIcon" src="raindrop" width="4.5rem" />
-				<Percipitation>{`${forecast.precipitation}%`}</Percipitation>
-			</RaindropPercentage>
+			<RaindropPercentage
+				width="4.5rem"
+				percipitation={forecast.precipitation}
+			/>
 		</CardWrapper>
 	);
 };

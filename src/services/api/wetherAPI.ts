@@ -3,7 +3,10 @@ import {
 	formatWeatherResponse,
 	ICurrWeatherResponseContent,
 } from '../../utils/formatWeatherResponse';
-import { formatHourlyForecastResponse } from '../../utils/formatForecastResponse';
+import {
+	formatDailyForecastResponse,
+	formatHourlyForecastResponse,
+} from '../../utils/formatForecastResponse';
 import { IForecast } from '../../store/forecast/forecastSlice';
 
 const getCurrentWeatherByCityName: Function = async (
@@ -51,6 +54,27 @@ const getHourlyForecastByCoordinates: Function = async (
 		`Hourly forecast search failure with status: ${response.status}`
 	);
 };
+
+export interface IDailyFormattedForecastResponse {
+	date: string;
+	sunrise: string;
+	sunset: string;
+	moonrise: string;
+	moonset: string;
+	moon_phase: number;
+	temp: TempDailyType;
+	feelsLike: FeelsLikeType;
+	pressure: number;
+	humidity: number;
+	dew_point: number;
+	wind_speed: number;
+	wind_deg: number;
+	weather: Array<WeatherDescType>;
+	clouds: number;
+	precipitation: number;
+	rain: number;
+	uvi: number;
+}
 
 export interface IDailyForecastResponse {
 	dt: number;
@@ -100,12 +124,14 @@ const getDailyForecastByCoordinates: Function = async (
 	coordinates: ICoordinates,
 	units: string = 'metric',
 	lang: string = 'eng'
-): Promise<Array<IDailyForecastResponse>> => {
+): Promise<Array<IDailyFormattedForecastResponse>> => {
+	console.log('hehehe');
 	const response = await axios.get(
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,hourly`
 	);
 	if (response.status === 200) {
-		return response.data.daily;
+		console.log(response.data.daily);
+		return formatDailyForecastResponse(response.data.daily);
 	}
 	throw new Error(
 		`Daily forecast search failure with status: ${response.status}`
