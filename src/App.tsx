@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { HeadlineSmallSVG } from './iconComponents/HeadlineSmallSVG';
 import Home from './pages/Home';
 import { Clock } from './components/clock';
+import { device } from './styles/responsive';
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -19,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
       top: 0;
       left: 0;
       z-index: -1;
-      background-image: url("${process.env.PUBLIC_URL}/backgrounds-svg/23-02-moon.svg");
+      background-image: url("${process.env.PUBLIC_URL}/backgrounds-svg/23-02-moon.png");
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -43,6 +44,14 @@ const AppWrapper = styled.div`
 	padding: 0 10rem;
 	height: 100vh;
 	position: relative;
+
+	@media ${device.mobileLarge} {
+		padding: 0 1rem;
+	}
+
+	@media ${device.tabletLarge} {
+		padding: 0 3rem;
+	}
 `;
 
 const App = () => {
@@ -51,7 +60,7 @@ const App = () => {
 			<HeadlineSmallSVG staticMode svgWidth="30rem" svgHeight="10rem" />
 
 			<AppWrapper>
-				<Clock />
+				{/* <Clock /> */}
 				<Home />
 			</AppWrapper>
 			<GlobalStyle />

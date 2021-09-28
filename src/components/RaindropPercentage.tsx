@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { CustomIcon } from '../iconComponents/CustomIcon';
+import { device } from '../styles/responsive';
 
 const RaindropPercentageWrapper = styled.div`
 	display: flex;
@@ -11,6 +12,10 @@ const RaindropPercentageWrapper = styled.div`
 const Percipitation = styled.span`
 	font-size: 2.5rem;
 	padding: 1rem 0 1rem 0;
+
+	@media ${device.tablet} {
+		font-size: 2rem;
+	}
 `;
 
 export type RaindropDataType = {

@@ -28,7 +28,7 @@ const CurrentWeatherResultWrapper = styled.div`
 	align-items: center;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	grid-gap: 0.5rem;
-	margin: 9rem 0 2.5rem 0;
+	margin: 12rem 0 2.5rem 0;
 	padding: 0 4rem;
 	width: 100%;
 	border-radius: 3rem;

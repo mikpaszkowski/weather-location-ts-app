@@ -50,6 +50,7 @@ const Home = () => {
 				temporaryMode={true}
 				staticMode={false}
 				searchResult={searchResult}
+				svgWidth="100%"
 			/>
 			<SearchBar
 				name="searchValue"
