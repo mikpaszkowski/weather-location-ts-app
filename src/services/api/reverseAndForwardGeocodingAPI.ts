@@ -28,7 +28,7 @@ const getGeocodingDataByCoordinates = async (
 		const res = await axios.get(
 			`http://api.positionstack.com/v1/reverse
       ? access_key = ${process.env.REACT_APP_GEOCODING_API_KEY}
-      & query = ${lat},${long}`
+      & query = ${lat},${long}/`
 		);
 		if (res.status === 200) return res.data;
 	} catch (error) {
