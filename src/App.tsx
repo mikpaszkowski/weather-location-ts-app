@@ -34,6 +34,13 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: "Lato", "sans-serif";
+
+  @media ${device.tablet} {
+    font-size: 9px;
+	}
+  @media ${device.mobileLarge} {
+    font-size: 8px;
+	}
   }
 `;
 
@@ -45,12 +52,12 @@ const AppWrapper = styled.div`
 	height: 100vh;
 	position: relative;
 
-	@media ${device.mobileLarge} {
-		padding: 0 1rem;
-	}
-
 	@media ${device.tabletLarge} {
 		padding: 0 3rem;
+	}
+
+	@media ${device.mobileLarge} {
+		padding: 0 1rem;
 	}
 `;
 

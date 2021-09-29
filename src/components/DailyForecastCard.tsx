@@ -29,6 +29,20 @@ const DailyForecastCardWrapper = styled.div`
 
 	@media ${device.tablet} {
 		font-size: 8px;
+		padding: 0.5rem 2rem;
+	}
+	@media ${device.tabletSmall} {
+		font-size: 7px;
+		margin-left: 0;
+		padding: 0.5rem 2rem;
+		& > img {
+			width: 4.5em;
+		}
+	}
+	@media ${device.mobileLarge} {
+		font-size: 6px;
+		padding: 0.5rem 2rem;
+		margin: 0.5rem 0;
 	}
 `;
 
@@ -37,10 +51,6 @@ const InfoGraphic = styled.div`
 	flex-direction: row;
 	align-items: center;
 	font-size: 10px;
-
-	@media ${device.tablet} {
-		font-size: 8px;
-	}
 `;
 
 const Date = styled.p`
@@ -51,8 +61,33 @@ const DayAndNightWeatherImage = styled.div`
 	font-size: 10px;
 	margin-left: 2em;
 
+	& > img {
+		width: 7em;
+	}
+
 	@media ${device.tablet} {
 		font-size: 8px;
+
+		& > img {
+			width: 5em;
+		}
+	}
+
+	@media ${device.tabletSmall} {
+		font-size: 7px;
+		margin-left: 0;
+		& > img {
+			width: 4.5em;
+		}
+	}
+
+	@media ${device.mobileLarge} {
+		font-size: 6px;
+		margin-left: 0;
+
+		& > img {
+			width: 4em;
+		}
 	}
 `;
 

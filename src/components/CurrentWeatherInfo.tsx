@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { toggleWeatherDisplay } from '../store/weatherDisplay/weatherDisplaySettingSlice';
 import { selectCurrWeatherDisplaySetting } from '../store/weatherDisplay/weatherDisplaySettingSlice';
 import { EntryViewType } from './WeatherResult';
+import { device } from '../styles/responsive';
 
 const slideDown = keyframes`
   from{
@@ -21,13 +22,11 @@ const slideDown = keyframes`
 `;
 
 const CurrentWeatherResultWrapper = styled.div`
-	display: grid;
-	flex-basis: 100%;
+	display: flex;
+	flex-direction: column;
 	position: relative;
 	justify-content: center;
 	align-items: center;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	grid-gap: 0.5rem;
 	margin: 12rem 0 2.5rem 0;
 	padding: 0 4rem;
 	width: 100%;
@@ -47,33 +46,70 @@ const CurrentWeatherResultWrapper = styled.div`
 
 const DateLocationWrapper = styled.div`
 	position: relative;
-
-	& > h1 {
-		font-size: 5rem;
-		font-weight: 400;
-		margin-bottom: 2rem;
-	}
-
-	& > span {
-		display: block;
-		font-size: 3.5rem;
-		font-weight: 300;
-	}
+	text-align: left;
+	width: 100%;
+	margin-top: 2rem;
 `;
 
 const Temp = styled.div`
-	display: flex;
-	position: relative;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	top: -1rem;
-	height: 100%;
+	display: inline;
+	margin-bottom: 3rem;
+	font-size: 7rem;
+	font-weight: 300;
 
-	& > span {
-		display: block;
-		font-size: 9rem;
-		font-weight: 300;
+	@media ${device.tabletSmall} {
+		font-size: 5rem;
+	}
+
+	@media ${device.mobileLarge} {
+		font-size: 3rem;
+	}
+`;
+
+const WeatherIconTempWrapper = styled.div`
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	width: 100%;
+
+	& > img {
+		width: 18rem;
+	}
+
+	@media ${device.tabletSmall} {
+		justify-content: flex-start;
+
+		& > img {
+			width: 13rem;
+		}
+	}
+
+	@media ${device.mobileLarge} {
+		justify-content: center;
+
+		& > img {
+			width: 11rem;
+		}
+	}
+`;
+
+const LocationName = styled.h1`
+	font-size: 4rem;
+	font-weight: 400;
+
+	@media ${device.tabletSmall} {
+		font-size: 3rem;
+	}
+`;
+
+const DateName = styled.span`
+	display: block;
+	font-size: 3rem;
+	font-weight: 300;
+
+	@media ${device.tabletSmall} {
+		font-size: 2rem;
 	}
 `;
 
@@ -96,16 +132,15 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
 	return (
 		<CurrentWeatherResultWrapper entryView={entryView}>
 			<DateLocationWrapper>
-				<h1>
+				<LocationName>
 					{city}, {country}
-				</h1>
-				<span>{`${date}`}</span>
+				</LocationName>
+				<DateName>{`${date}`}</DateName>
 			</DateLocationWrapper>
-			<CustomIcon alt="weatherIcon" src={icon} width="35rem" />
-			<Temp>
-				<span>{`${temp}\u00b0C`}</span>
-				<Description>{description}</Description>
-			</Temp>
+			<WeatherIconTempWrapper>
+				<CustomIcon alt="weatherIcon" src={icon} />
+				<Temp>{`${temp}\u00b0C`}</Temp>
+			</WeatherIconTempWrapper>
 			<ToggleWeatherButton
 				onClick={toggleWeatherSetting}
 				displaySetting={displaySetting}
