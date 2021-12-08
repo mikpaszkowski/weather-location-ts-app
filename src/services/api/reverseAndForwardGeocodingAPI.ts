@@ -1,23 +1,28 @@
 import axios from 'axios';
 
 export interface IGeocodingData {
-	latitude: number;
-	longitude: number;
-	label: string;
-	name: string;
-	type: string;
-	distance: number;
-	number: string;
-	street: string;
-	postal_code: string;
-	confidence: number;
-	region: string;
-	region_code: string;
-	administrative_area: null;
-	neighbourhood: string;
-	country: string;
-	country_code: string;
-	map_url: string;
+	"place_id": number,
+	"licence": string,
+	"osm_type": string,
+	"osm_id": number,
+	"lat": string,
+	"lon": string,
+	"display_name": string,
+	"address": {
+		"house_number": string,
+		"road": string,
+		"hamlet": string,
+		"town": string,
+		"village": string,
+		"city": string,
+		"county": string,
+		"state_district": string,
+		"state": string,
+		"postcode": string,
+		"country": string,
+		"country_code": string
+	},
+	"boundingbox": string[]
 }
 
 const getGeocodingDataByCoordinates = async (
@@ -26,9 +31,7 @@ const getGeocodingDataByCoordinates = async (
 ): Promise<IGeocodingData | undefined> => {
 	try {
 		const res = await axios.get(
-			`http://api.positionstack.com/v1/reverse
-      ? access_key = ${process.env.REACT_APP_GEOCODING_API_KEY}
-      & query = ${lat},${long}/`
+			`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}`
 		);
 		if (res.status === 200) return res.data;
 	} catch (error) {
@@ -41,10 +44,10 @@ const getGeocodingDataByCityName = async (
 ): Promise<IGeocodingData | undefined> => {
 	try {
 		const res = await axios.get(
-			`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_GEOCODING_API_KEY}&query=${cityName}`
+			`https://nominatim.openstreetmap.org/search?city=${cityName}&format=json`
 		);
-		console.log(res.data.data[0]);
-		if (res.status === 200) return res.data.data[0];
+		console.log(res)
+		if (res.status === 200) return res.data[0];
 	} catch (error) {
 		console.log(error);
 	}

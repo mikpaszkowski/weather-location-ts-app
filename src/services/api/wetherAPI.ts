@@ -129,7 +129,6 @@ const getDailyForecastByCoordinates: Function = async (
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,hourly`
 	);
 	if (response.status === 200) {
-		console.log(coordinates);
 		return formatDailyForecastResponse(response.data.daily);
 	}
 	throw new Error(
