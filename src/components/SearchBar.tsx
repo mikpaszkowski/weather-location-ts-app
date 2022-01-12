@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
+import { Link } from "react-router-dom";
 
 interface InputProps {
 	placeholder: string;
@@ -113,7 +114,7 @@ export const SearchBar = ({
 				placeholder={placeholder}
 				autoFocus
 			/>
-			<SearchIcon />
+      <SearchIcon/>
 		</SearchBarWrapper>
 	);
 };

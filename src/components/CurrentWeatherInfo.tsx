@@ -125,7 +125,7 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
 	const dispatch = useDispatch();
 	const currentWeather = useAppSelector(selectCurrentWeather);
 	const { displaySetting } = useAppSelector(selectCurrWeatherDisplaySetting);
-	const { city, country, date, description, icon, temp } = currentWeather;
+	const { city, country, date, icon, temp } = currentWeather;
 	const toggleWeatherSetting = () => {
 		dispatch(toggleWeatherDisplay());
 	};
@@ -141,10 +141,6 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
 				<CustomIcon alt="weatherIcon" src={icon} />
 				<Temp>{`${temp}\u00b0C`}</Temp>
 			</WeatherIconTempWrapper>
-			<ToggleWeatherButton
-				onClick={toggleWeatherSetting}
-				displaySetting={displaySetting}
-			/>
 		</CurrentWeatherResultWrapper>
 	);
 };

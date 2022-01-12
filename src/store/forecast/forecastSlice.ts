@@ -147,8 +147,6 @@ export const selectCurrentWeather = (state: RootState) =>
 	state.forecast.current;
 export const selectDailyForecast = (state: RootState) => state.forecast.daily;
 export const selectHourlyForecast = (state: RootState) => state.forecast.hourly;
-export const selectForecastLoading = (state: RootState) =>
-	state.forecast.loading;
 export const selectSearchError = (state: RootState) =>
 	state.forecast.searchError;
 export default currWeatherSlice.reducer;

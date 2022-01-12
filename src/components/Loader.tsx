@@ -51,5 +51,5 @@ const LoaderWrapper = styled.div`
 `;
 
 export const Loader = () => {
-	return <LoaderWrapper></LoaderWrapper>;
+	return <LoaderWrapper/>;
 };

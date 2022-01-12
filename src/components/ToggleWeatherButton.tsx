@@ -5,13 +5,14 @@ import { IWeatherDisplaySetting } from '../store/weatherDisplay/weatherDisplaySe
 const ToggleButton = styled.button`
 	display: flex;
 	flex-direction: row;
+	width: 100%;
 	align-self: flex-start;
 	bottom: 1rem;
 	left: 4rem;
 	z-index: 2;
 	background-color: transparent;
-	border: none;
-	border-top: 1px solid #ffffff;
+	border: 1px solid #ffffff;
+	border-radius: 2rem;
 	letter-spacing: 0.1rem;
 	cursor: pointer;
 `;
@@ -21,6 +22,8 @@ const Hourly = styled.div`
 	color: white;
 	font-size: 2rem;
 	height: 100%;
+	width: 50%;
+	border-radius: 2rem;
 	padding: 1rem 4rem;
 	background-color: ${(props: IWeatherDisplaySetting) =>
 		props.displaySetting === 'hourly' ? '#ffffff60' : 'transparent'};

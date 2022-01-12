@@ -6,7 +6,7 @@ import geoLocationReducer from './geoLocation/geoLocationSlice';
 import searchInfoReducer from './search/searchSlice';
 import weatherDisplayReducer from './weatherDisplay/weatherDisplaySettingSlice';
 
-const middlewares = [logger, thunk];
+const middlewares = [ thunk];
 
 export const store = configureStore({
 	reducer: {

@@ -46,7 +46,6 @@ const getGeocodingDataByCityName = async (
 		const res = await axios.get(
 			`https://nominatim.openstreetmap.org/search?city=${cityName}&format=json`
 		);
-		console.log(res)
 		if (res.status === 200) return res.data[0];
 	} catch (error) {
 		console.log(error);

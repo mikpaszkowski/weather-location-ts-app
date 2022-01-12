@@ -21,7 +21,7 @@ const DailyForecastWrapper = styled.div`
 	transform: translateX(0);
 	animation-name: ${slideDown};
 	animation-duration: 0.5s;
-	animation-delay: 0.4s;
+	animation-delay: 0.1s;
 	animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 	animation-fill-mode: both;
 	will-change: transform;
