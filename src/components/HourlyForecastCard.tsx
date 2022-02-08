@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import { IHourlyForecastResponse } from '../services/api/wetherAPI';
 import { CustomIcon } from '../iconComponents/CustomIcon';
 import { RaindropPercentage } from './RaindropPercentage';
+import { useWindowSize } from "../hooks/useWindowSize";
+import { useEffect, useState } from "react";
+import { device } from "../styles/responsive";
 
 const CardWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: stretch;
-	padding: 2rem 3rem;
+	align-items: center;
+	padding: 2rem 3rem 0 3rem;
 	margin: 1rem;
 	background-color: #616161c0;
 	backdrop-filter: blur(4px);
@@ -24,6 +27,12 @@ const CardWrapper = styled.div`
 			rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
 			rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 	}
+
+	@media ${device.tabletSmall} {
+		padding: 1rem 2rem;
+	}
+	
+	
 `;
 
 const Temp = styled.div`
@@ -34,13 +43,16 @@ const Temp = styled.div`
 	align-items: center;
 	text-align: center;
 	top: -0.5rem;
-	margin-right: 1rem;
 	height: 100%;
 
 	& > span {
 		display: block;
-		font-size: 2.7rem;
+		font-size: 2.8rem;
 		font-weight: 500;
+
+		@media ${device.tabletSmall} {
+			font-size: 2rem;
+		}
 	}
 `;
 
@@ -54,10 +66,22 @@ type Props = {
 };
 
 export const HourlyForecastCard = ({ forecast }: Props): JSX.Element => {
+
+	const windowsSize = useWindowSize();
+	const [iconWidth, setIconWidth] = useState<string>('0rem');
+
+	useEffect(() => {
+		console.log(windowsSize)
+		if(windowsSize.width <= 540){
+			setIconWidth('8rem')
+		}
+
+	}, [windowsSize])
+
 	return (
 		<CardWrapper>
 			<Hour>{forecast.hour}</Hour>
-			<CustomIcon src={forecast.icon} alt="weather-icon" />{' '}
+			<CustomIcon src={forecast.icon} alt="weather-icon" width={iconWidth}/>{' '}
 			<Temp>
 				<span>{`${forecast.temperature}\u00b0C`}</span>
 			</Temp>

@@ -7,6 +7,7 @@ const RaindropPercentageWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-right: 2rem;
 
 	& > img {
 		width: 4rem;
@@ -14,11 +15,11 @@ const RaindropPercentageWrapper = styled.div`
 `;
 
 const Percipitation = styled.span`
-	font-size: 2.5rem;
+	font-size: 2.2rem;
 	padding: 1rem 0 1rem 0;
 
 	@media ${device.tablet} {
-		font-size: 2rem;
+		font-size: 1.8rem;
 	}
 
 	@media ${device.mobileLarge} {

@@ -1,10 +1,8 @@
 /* eslint-disable max-len */
 import * as React from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { HeadlineSmallSVG } from "./iconComponents/HeadlineSmallSVG";
 import Home from "./pages/Home";
 import { device } from "./styles/responsive";
-import { Link } from "react-router-dom";
 import { Navigation } from "./components/Navigation";
 
 const GlobalStyle = createGlobalStyle`
@@ -47,11 +45,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppWrapper = styled.div`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   max-width: 120rem;
   margin: 0 auto;
   padding: 0 10rem;
-  height: 100vh;
   position: relative;
 
   @media ${device.tabletLarge} {
@@ -66,7 +65,7 @@ const AppWrapper = styled.div`
 const App = () => {
   return (
     <>
-      <Navigation/>
+      <Navigation />
       <AppWrapper>
         {/* <Clock /> */}
         <Home />

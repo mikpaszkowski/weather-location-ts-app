@@ -8,8 +8,6 @@ import { SearchBar } from "../components/SearchBar";
 import { fetchForecast } from "../store/forecast/forecastSlice";
 import { useAppDispatch, useAppSelector, useThunkAppDispatch } from "../hooks/storeHooks";
 import { selectSearchRunning, setSearchInfo } from "../store/search/searchSlice";
-import { Link } from "react-router-dom";
-import { uuid } from 'uuidv4';
 
 const StyledNotFoundIcon = styled(RiEmotionSadLine)`
   display: block;
@@ -29,6 +27,8 @@ const Home = () => {
   const searchResult = useAppSelector(selectSearchRunning);
   const [searchValue, setSearchValue] = useState<string>("");
   const [entryView, setEntryView] = useState<boolean>(true);
+
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
   };

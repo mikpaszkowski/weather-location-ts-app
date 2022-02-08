@@ -11,8 +11,8 @@ export interface ICurrWeatherResponseContent {
   temp: number;
   tempMax: number;
   tempMin: number;
-  sunrise: number;
-  sunset: number;
+  sunrise: '';
+  sunset: '';
   description: string;
   icon: string;
   windSpeed: number;
