@@ -85,6 +85,11 @@ export const CurrentWeatherDetails = ({ data }: CurrentWeatherDetailsProps) => {
     }
   }, [])
 
+  const scaleMoonPhaseNumberToPercent = (phase: number): number => {
+    if(phase <= 50) return phase * 2;
+    return 100 - ((phase * 2) - 100);
+  }
+
   const icon = data.weather[0].icon;
   return (
     <WeatherDetailsWrapper style={{ margin: "0 3rem" }}>
@@ -107,7 +112,7 @@ export const CurrentWeatherDetails = ({ data }: CurrentWeatherDetailsProps) => {
         <DetailLine>
           <MoonPhaseWrapper>
             <CustomIcon alt="moonphase" src={moonphase.icon}/>
-            <MoonPhaseDescription>{moonphase.description} {data.moonPhase}%</MoonPhaseDescription>
+            <MoonPhaseDescription>{moonphase.description} {scaleMoonPhaseNumberToPercent(data.moonPhase)}%</MoonPhaseDescription>
           </MoonPhaseWrapper>
         </DetailLine>
       </Details>
