@@ -61,7 +61,7 @@ export interface IDailyFormattedForecastResponse {
 	sunset: string;
 	moonrise: string;
 	moonset: string;
-	moon_phase: number;
+	moonPhase: number;
 	temp: TempDailyType;
 	feelsLike: FeelsLikeType;
 	pressure: number;

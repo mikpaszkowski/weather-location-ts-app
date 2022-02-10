@@ -30,16 +30,19 @@ const Percipitation = styled.span`
 export type RaindropDataType = {
 	width: string;
 	percipitation: number;
+	loosely?: boolean;
 };
 
 export const RaindropPercentage = ({
 	width,
 	percipitation,
+	loosely
 }: RaindropDataType) => {
+
 	return (
 		<RaindropPercentageWrapper>
 			<CustomIcon alt="weatherIcon" src="raindrop" width={width} />
-			<Percipitation>{`${percipitation}%`}</Percipitation>
+			<Percipitation style={ loosely ? {marginLeft: "2rem"} : {} }>{`${percipitation}%`}</Percipitation>
 		</RaindropPercentageWrapper>
 	);
 };

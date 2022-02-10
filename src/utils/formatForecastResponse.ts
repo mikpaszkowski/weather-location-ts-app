@@ -54,7 +54,7 @@ const formatDateOfDailyForecastResponse: Function = (
     sunset: getBasicTimeFormatFromTimestamp(data.sunset),
     moonrise: getBasicTimeFormatFromTimestamp(data.moonrise),
     moonset: getBasicTimeFormatFromTimestamp(data.moonset),
-    moon_phase: Math.floor(data.moon_phase * 100),
+    moonPhase: Math.floor(data.moon_phase * 100),
     temp: formatTempData(data.temp),
     feelsLike: data.feelsLike,
     pressure: data.pressure,

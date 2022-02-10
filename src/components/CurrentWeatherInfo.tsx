@@ -11,14 +11,15 @@ import {
 import { EntryViewType } from "./WeatherResult";
 import { device } from "../styles/responsive";
 import { DetailItem } from "./DetailItem";
+import { WeatherInfoGraphic } from "./WeatherInfoGraphic";
 
 const slideDown = keyframes`
   from {
-    transfrom: translateX(0);
+    transform: translateX(-5rem);
     opacity: 0;
   }
   to {
-    transfrom: translateX(-5rem);
+    transform: translateX(0rem);
     opacity: 1;
   }
 `;
@@ -58,49 +59,6 @@ const DateLocationWrapper = styled.div`
   margin-top: 2rem;
 `;
 
-const Temp = styled.div`
-  display: inline;
-  margin-bottom: 3rem;
-  font-size: 7rem;
-  font-weight: 300;
-
-  @media ${device.tabletSmall} {
-    font-size: 5rem;
-  }
-
-  @media ${device.mobileLarge} {
-    font-size: 3rem;
-  }
-`;
-
-const WeatherIconTempWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 100%;
-
-  & > img {
-    width: 18rem;
-  }
-
-  @media ${device.tabletSmall} {
-    justify-content: flex-start;
-
-    & > img {
-      width: 13rem;
-    }
-  }
-
-  @media ${device.mobileLarge} {
-    justify-content: center;
-
-    & > img {
-      width: 11rem;
-    }
-  }
-`;
-
 const LocationName = styled.h1`
   font-size: 4rem;
   font-weight: 400;
@@ -132,21 +90,26 @@ const MainGeoWeatherInfo = styled.div`
   
 `;
 
-const Details = styled.div`
+export const Details = styled.div`
   display: flex;
   flex-direction: column; 
   align-self: self-start;
   margin-top: 3rem;
+  padding: 0 2rem;
+  border: 1px #ffffffab solid;
+  border-radius: 16px;
   
   @media ${device.tablet} {
     align-self: center;
   }
 `;
 
-const DetailLine = styled.div`
+export const DetailLine = styled.div`
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px #ffffffab solid;
 `;
+
 
 const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
   const dispatch = useDispatch();
@@ -165,23 +128,20 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
           </LocationName>
           <DateName>{`${date}`}</DateName>
         </DateLocationWrapper>
-        <WeatherIconTempWrapper>
-          <CustomIcon alt="weatherIcon" src={icon} />
-          <Temp>{`${temp}\u00b0C`}</Temp>
-        </WeatherIconTempWrapper>
+        <WeatherInfoGraphic src={icon} temp={temp} />
       </MainGeoWeatherInfo>
       <Details>
         <DetailLine>
-          <DetailItem iconName="sunrise" text={currentWeather.sunrise}/>
-          <DetailItem iconName="sunset" text={currentWeather.sunset}/>
+          <DetailItem iconName="sunrise" text={currentWeather.sunrise} />
+          <DetailItem iconName="sunset" text={currentWeather.sunset} />
         </DetailLine>
-       <DetailLine>
-         <DetailItem iconName="barometer" text={`${currentWeather.pressure.toString()} hPa`}/>
-         <DetailItem iconName="windsock" text={`${currentWeather.windSpeed.toString()} m/s`}/>
-       </DetailLine>
         <DetailLine>
-          <DetailItem iconName="humidity" text={currentWeather.humidity.toString()}/>
-          <DetailItem iconName="overcast" text={`${currentWeather.clouds.toString()} %`}/>
+          <DetailItem iconName="barometer" text={`${currentWeather.pressure.toString()} hPa`} />
+          <DetailItem iconName="windsock" text={`${currentWeather.windSpeed.toString()} m/s`} />
+        </DetailLine>
+        <DetailLine>
+          <DetailItem iconName="humidity" text={currentWeather.humidity.toString()} />
+          <DetailItem iconName="overcast" text={`${currentWeather.clouds.toString()} %`} />
         </DetailLine>
       </Details>
     </CurrentWeatherResultWrapper>

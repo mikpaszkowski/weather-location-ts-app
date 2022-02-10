@@ -36,7 +36,6 @@ const WeatherResult = ({ entryView }: EntryViewType) => {
 					) : (
 						<>
 							{<CurrentWeatherInfo entryView={entryView} />}
-							<CurrentWeatherDetails />
 							<ToggleWeatherButton
 								onClick={toggleWeatherSetting}
 								displaySetting={displaySetting}

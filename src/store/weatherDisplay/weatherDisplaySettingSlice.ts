@@ -18,7 +18,7 @@ export const weatherDisplaySettingSlice = createSlice({
 				? (state.displaySetting = 'hourly')
 				: (state.displaySetting = 'daily');
 		},
-	},
+	}
 });
 
 export const { toggleWeatherDisplay } = weatherDisplaySettingSlice.actions;

@@ -13,7 +13,7 @@ export const store = configureStore({
     forecast: currWeatherReducer,
     geoLocation: geoLocationReducer,
     searchInfo: searchInfoReducer,
-    weatherDisplaySetting: weatherDisplayReducer
+    weatherDisplaySetting: weatherDisplayReducer,
   },
   middleware: middlewares
 });

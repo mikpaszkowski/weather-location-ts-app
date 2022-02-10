@@ -34,7 +34,7 @@ export const initialState: IForecast = {
 			sunset: '0',
 			moonrise: '0',
 			moonset: '0',
-			moon_phase: 0,
+			moonPhase: 0,
 			temp: {
 				day: 0,
 				min: 0,
@@ -141,6 +141,7 @@ export const currWeatherSlice = createSlice({
 		});
 	},
 });
+
 
 export const { set } = currWeatherSlice.actions;
 export const selectCurrentWeather = (state: RootState) =>
