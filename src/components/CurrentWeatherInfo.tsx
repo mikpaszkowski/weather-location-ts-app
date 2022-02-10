@@ -102,12 +102,17 @@ export const Details = styled.div`
   @media ${device.tablet} {
     align-self: center;
   }
+  
 `;
 
 export const DetailLine = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px #ffffffab solid;
+
+  &:last-child{
+    border-bottom: none;
+  }
 `;
 
 
@@ -132,16 +137,16 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
       </MainGeoWeatherInfo>
       <Details>
         <DetailLine>
-          <DetailItem iconName="sunrise" text={currentWeather.sunrise} />
-          <DetailItem iconName="sunset" text={currentWeather.sunset} />
+          <DetailItem small iconName="sunrise" text={currentWeather.sunrise} />
+          <DetailItem small iconName="sunset" text={currentWeather.sunset} />
         </DetailLine>
         <DetailLine>
-          <DetailItem iconName="barometer" text={`${currentWeather.pressure.toString()} hPa`} />
-          <DetailItem iconName="windsock" text={`${currentWeather.windSpeed.toString()} m/s`} />
+          <DetailItem small iconName="barometer" text={`${currentWeather.pressure.toString()} hPa`} />
+          <DetailItem small iconName="windsock" text={`${currentWeather.windSpeed.toString()} m/s`} />
         </DetailLine>
         <DetailLine>
-          <DetailItem iconName="humidity" text={currentWeather.humidity.toString()} />
-          <DetailItem iconName="overcast" text={`${currentWeather.clouds.toString()} %`} />
+          <DetailItem small iconName="humidity" text={currentWeather.humidity.toString()} />
+          <DetailItem small iconName="overcast" text={`${currentWeather.clouds.toString()} %`} />
         </DetailLine>
       </Details>
     </CurrentWeatherResultWrapper>

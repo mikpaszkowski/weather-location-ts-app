@@ -5,7 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "./store/rootStore";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/home" element={<App />}/>
+          <Route path="/" element={<Navigate replace to="/home"/>}/>
         </Routes>
       </BrowserRouter>
     </Provider>

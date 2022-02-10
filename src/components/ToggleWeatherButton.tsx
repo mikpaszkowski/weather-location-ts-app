@@ -9,6 +9,7 @@ const ToggleButton = styled.button`
 	align-self: flex-start;
 	bottom: 1rem;
 	left: 4rem;
+	margin-bottom: 4rem;
 	z-index: 2;
 	background-color: transparent;
 	border: 1px solid #ffffff;
