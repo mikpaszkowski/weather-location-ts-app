@@ -4,7 +4,7 @@ import {
   IHourlyForecastResponse,
   TempDailyType
 } from "../services/api/wetherAPI";
-import { getBasicTimeFormatFromTimestamp, getDayFromTimeStamp } from "./timeUtility";
+import { getBasicTimeFormatFromTimestamp, getDayFromTimeStamp, shiftByTimezoneOffset } from "./timeUtility";
 
 export interface IWeather {
   description: string;
@@ -30,30 +30,32 @@ export interface IForecastResponse {
   wind_speed: number;
 }
 
-const getHourForecast = (data: IForecastResponse): IHourlyForecastResponse => {
+const getHourForecast = (data: IForecastResponse, timeZoneOffset: number): IHourlyForecastResponse => {
   return {
     icon: data.weather[0].icon,
-    hour: getBasicTimeFormatFromTimestamp(data.dt),
+    hour: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.dt, timeZoneOffset)),
     temperature: Math.round(data.temp),
     precipitation: Math.floor(data.pop * 100)
   };
 };
 
 export const formatHourlyForecastResponse: Function = (
-  data: Array<IForecastResponse>
+  data: Array<IForecastResponse>,
+  timeZoneOffset: number
 ): Array<IHourlyForecastResponse> => {
-  return data.map((forecast) => getHourForecast(forecast));
+  return data.map((forecast) => getHourForecast(forecast, timeZoneOffset));
 };
 
 const formatDateOfDailyForecastResponse: Function = (
-  data: IDailyForecastResponse
+  data: IDailyForecastResponse,
+  timeZoneOffset: number
 ): IDailyFormattedForecastResponse => {
   return {
     date: getDayFromTimeStamp(data.dt),
-    sunrise: getBasicTimeFormatFromTimestamp(data.sunrise),
-    sunset: getBasicTimeFormatFromTimestamp(data.sunset),
-    moonrise: getBasicTimeFormatFromTimestamp(data.moonrise),
-    moonset: getBasicTimeFormatFromTimestamp(data.moonset),
+    sunrise: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.sunrise, timeZoneOffset)),
+    sunset: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.sunset, timeZoneOffset)),
+    moonrise: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.moonrise, timeZoneOffset)),
+    moonset: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.moonset, timeZoneOffset)),
     moonPhase: Math.floor(data.moon_phase * 100),
     temp: formatTempData(data.temp),
     feelsLike: data.feelsLike,
@@ -71,9 +73,10 @@ const formatDateOfDailyForecastResponse: Function = (
 };
 
 export const formatDailyForecastResponse: Function = (
-  data: Array<IDailyForecastResponse>
+  data: Array<IDailyForecastResponse>,
+  timeZoneOffset: number
 ): Array<IDailyFormattedForecastResponse> => {
-  return data.map((forecast) => formatDateOfDailyForecastResponse(forecast));
+  return data.map((forecast) => formatDateOfDailyForecastResponse(forecast, timeZoneOffset));
 };
 
 const formatTempData: Function = (data: TempDailyType): TempDailyType => {

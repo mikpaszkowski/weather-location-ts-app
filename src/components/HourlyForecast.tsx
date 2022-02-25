@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { HourlyForecastCard } from "./HourlyForecastCard";
 import { useAppSelector } from "../hooks/storeHooks";
 import { selectHourlyForecast } from "../store/forecast/forecastSlice";
-import { CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const slideDown = keyframes`
   from {
@@ -18,7 +18,7 @@ const HourlyForecastWrapper = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-  margin-top: 4rem;
+  margin: 4rem 0;
   overflow-x: scroll;
   transition: 0.6s 0.3s ease-in-out;
   transform: translateX(0);
@@ -50,7 +50,7 @@ type HourlyChartData = {
 
 const ChartWrapper = styled.div`
   position: relative;
-  background-color: #272727e3; 
+  background-color: #272727e3;
   border-radius: 1rem;
   padding-top: 3rem;
   padding-right: 1rem;
@@ -85,27 +85,27 @@ export const HourlyForecast = () => {
 
   return (
     <>
-      <ChartWrapper>
-        <LabelY>Temperature</LabelY>
-        <LabelX>Time</LabelX>
-        <ResponsiveContainer width="100%" height={250} >
-          <LineChart data={chartData as any[]}>
-            <CartesianGrid strokeDasharray="3 3" strokeWidth={3} />
-            <XAxis dataKey="hour" stroke="#ffffff">
-            </XAxis>
-            <YAxis stroke="#ffffff">
-            </YAxis>
-            <Tooltip />
-            <Line type="monotone" dataKey="temperature" stroke="#90f2bc" activeDot={{ r: 8 }} strokeWidth={5} />
-          </LineChart>
-        </ResponsiveContainer>
-      </ChartWrapper>
       <HourlyForecastWrapper>
         {hourlyForecast.map((forecast, index) => (
           <HourlyForecastCard key={index} forecast={forecast} />
         ))}
 
       </HourlyForecastWrapper>
+      <ChartWrapper>
+        <LabelY>Temperature</LabelY>
+        <LabelX>Time</LabelX>
+        <ResponsiveContainer width="100%" height={250}>
+          <LineChart data={chartData as any[]}>
+            <CartesianGrid strokeDasharray="3 3" strokeWidth={2} />
+            <XAxis dataKey="hour" stroke="#ffffff">
+            </XAxis>
+            <YAxis stroke="#ffffff">
+            </YAxis>
+            <Tooltip />
+            <Line type="monotone" dataKey="temperature" stroke="#90f2bc" activeDot={{ r: 8 }} strokeWidth={4} />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartWrapper>
     </>
   );
 };

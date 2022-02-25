@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
       top: 0;
       left: 0;
       z-index: -1;
-      background-image: url("${process.env.PUBLIC_URL}/backgrounds-svg/23-02-moon.png");
+      background-image: url(${`${process.env.PUBLIC_URL}/backgrounds-svg/23-02-moon.png`});
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -48,7 +48,7 @@ const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  max-width: 120rem;
+  max-width: 100rem;
   margin: 0 auto;
   padding: 0 10rem;
   position: relative;
@@ -67,7 +67,6 @@ const App = () => {
     <>
       <Navigation />
       <AppWrapper>
-        {/* <Clock /> */}
         <Home />
       </AppWrapper>
       <GlobalStyle />

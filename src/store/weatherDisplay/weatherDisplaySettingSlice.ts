@@ -2,21 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../rootStore';
 
 export interface IWeatherDisplaySetting {
-	displaySetting: 'daily' | 'hourly';
+	displaySetting: 'daily' | 'hourly' | 'today';
 }
 
 const initialState: IWeatherDisplaySetting = {
-	displaySetting: 'daily',
+	displaySetting: 'today',
 };
 
 export const weatherDisplaySettingSlice = createSlice({
 	name: 'weatherDisplay',
 	initialState,
 	reducers: {
-		toggleWeatherDisplay: (state, action: PayloadAction<void>) => {
-			state.displaySetting === 'daily'
-				? (state.displaySetting = 'hourly')
-				: (state.displaySetting = 'daily');
+		toggleWeatherDisplay: (state, action: PayloadAction<IWeatherDisplaySetting>) => {
+			state.displaySetting = action.payload.displaySetting
 		},
 	}
 });

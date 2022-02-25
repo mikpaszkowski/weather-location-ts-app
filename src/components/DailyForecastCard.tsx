@@ -6,8 +6,9 @@ import { IDailyFormattedForecastResponse } from "../services/api/wetherAPI";
 import { device } from "../styles/responsive";
 import { RaindropPercentage } from "./RaindropPercentage";
 import { CurrentWeatherDetails } from "./CurrentWeatherDetails";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
-  const DailyForecastCardWrapper = styled.div`
+const DailyForecastCardWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -95,6 +96,15 @@ const DayAndNightWeatherImage = styled.div`
 
 const Temperature = styled.p`
   font-size: 2.5em;
+  margin-right: 1.7rem;
+`;
+
+export const CustomDropDownIcon = styled(RiArrowDropDownLine)`
+  font-size: 4rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 export type DailyForecastDataType = {
@@ -140,12 +150,14 @@ export const DailyForecastCard = (data: IDailyFormattedForecastResponse) => {
               />
             </DayAndNightWeatherImage>
           </InfoGraphic>
-          <Temperature>{`${data.temp.day}\u00b0C/${data.temp.night}\u00b0C`}</Temperature>
+          <Temperature>{`${data.temp.day}\u00b0C/${data.temp.night}\u00b0C`}
+            <CustomDropDownIcon />
+          </Temperature>
         </> : null
       }
       {
         isOpen ? (
-          <CurrentWeatherDetails data={data}/>
+          <CurrentWeatherDetails data={data} />
         ) : null
       }
     </DailyForecastCardWrapper>

@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled, { keyframes } from "styled-components";
-import { CustomIcon } from "../iconComponents/CustomIcon";
 import { useAppSelector } from "../hooks/storeHooks";
 import { selectCurrentWeather } from "../store/forecast/forecastSlice";
 import { useDispatch } from "react-redux";
@@ -12,6 +11,7 @@ import { EntryViewType } from "./WeatherResult";
 import { device } from "../styles/responsive";
 import { DetailItem } from "./DetailItem";
 import { WeatherInfoGraphic } from "./WeatherInfoGraphic";
+import { CustomIcon } from "../iconComponents/CustomIcon";
 
 const slideDown = keyframes`
   from {
@@ -31,7 +31,7 @@ const CurrentWeatherResultWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 4rem 0 2.5rem 0;
-  padding: 0 4rem;
+  padding: 2rem 4rem;
   width: 100%;
   border-radius: 3rem;
   transition: 0.6s 0.3s ease-in-out;
@@ -45,7 +45,7 @@ const CurrentWeatherResultWrapper = styled.div`
   background-color: #9c9c9c78;
   backdrop-filter: blur(4px);
   will-change: transform;
-  
+
   @media ${device.tablet} {
     flex-direction: column;
     justify-content: center;
@@ -56,7 +56,6 @@ const DateLocationWrapper = styled.div`
   position: relative;
   text-align: left;
   width: 100%;
-  margin-top: 2rem;
 `;
 
 const LocationName = styled.h1`
@@ -70,7 +69,7 @@ const LocationName = styled.h1`
 
 const DateName = styled.span`
   display: block;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 300;
 
   @media ${device.tabletSmall} {
@@ -87,33 +86,56 @@ const Description = styled.div`
 `;
 
 const MainGeoWeatherInfo = styled.div`
-  
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
 `;
 
 export const Details = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-self: self-start;
   margin-top: 3rem;
   padding: 0 2rem;
   border: 1px #ffffffab solid;
   border-radius: 16px;
-  
+
   @media ${device.tablet} {
     align-self: center;
   }
-  
+
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+`;
+
+const CustomSpan = styled.p`
+  font-size: ${(props: CustomParagraphProps) => props.fontSize ? props.fontSize : "2rem"};
+  text-align: ${(props: CustomParagraphProps) => props.textAlign ? props.textAlign : "right"};
+`;
+
+const DetailsWrapper = styled.div`
+
 `;
 
 export const DetailLine = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px #ffffffab solid;
 
-  &:last-child{
+  &:last-child {
     border-bottom: none;
   }
 `;
+
+type CustomParagraphProps = {
+  textAlign?: "left" | "right" | "center"
+  fontSize?: string
+}
 
 
 const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
@@ -121,9 +143,7 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
   const currentWeather = useAppSelector(selectCurrentWeather);
   const { displaySetting } = useAppSelector(selectCurrWeatherDisplaySetting);
   const { city, country, date, icon, temp } = currentWeather;
-  const toggleWeatherSetting = () => {
-    dispatch(toggleWeatherDisplay());
-  };
+
   return (
     <CurrentWeatherResultWrapper entryView={entryView}>
       <MainGeoWeatherInfo>
@@ -133,22 +153,18 @@ const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
           </LocationName>
           <DateName>{`${date}`}</DateName>
         </DateLocationWrapper>
-        <WeatherInfoGraphic src={icon} temp={temp} />
+        <WeatherInfoGraphic src={icon} temp={temp} isMargin={true} />
       </MainGeoWeatherInfo>
-      <Details>
-        <DetailLine>
-          <DetailItem small iconName="sunrise" text={currentWeather.sunrise} />
-          <DetailItem small iconName="sunset" text={currentWeather.sunset} />
-        </DetailLine>
-        <DetailLine>
-          <DetailItem small iconName="barometer" text={`${currentWeather.pressure.toString()} hPa`} />
-          <DetailItem small iconName="windsock" text={`${currentWeather.windSpeed.toString()} m/s`} />
-        </DetailLine>
-        <DetailLine>
-          <DetailItem small iconName="humidity" text={currentWeather.humidity.toString()} />
-          <DetailItem small iconName="overcast" text={`${currentWeather.clouds.toString()} %`} />
-        </DetailLine>
-      </Details>
+      <Container>
+        <CustomSpan fontSize="3.3rem">{currentWeather.description}</CustomSpan>
+        <CustomSpan fontSize="2rem">{`Feels like ${currentWeather.tempFeelsLike}\u00b0`}</CustomSpan>
+        <Details style={{ padding: 0, margin: "3rem 0 0 0" }}>
+          <DetailLine>
+            <DetailItem fontSize="2.7rem" iconName="thermometer-warmer" text={`${currentWeather.tempMax}\u00b0`} />
+            <DetailItem fontSize="2.7rem" iconName="thermometer-colder" text={`${currentWeather.tempMin}\u00b0`} />
+          </DetailLine>
+        </Details>
+      </Container>
     </CurrentWeatherResultWrapper>
   );
 };

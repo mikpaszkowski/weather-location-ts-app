@@ -11,7 +11,7 @@ const WeatherIconTempWrapper = styled.div`
   width: 100%;
 
   & > img {
-    width: ${(props: WeatherIconTempWrapperSize) => props.small ? "14rem" : "18rem"};
+    width: ${(props: WeatherIconTempWrapperSize) => props.small ? "14rem" : "20rem"};
   }
 
   @media ${device.tabletSmall} {
@@ -33,8 +33,8 @@ const WeatherIconTempWrapper = styled.div`
 
 const Temp = styled.div`
   display: inline;
-  margin-bottom: 3rem;
-  font-size: 7rem;
+  margin-bottom: ${(props: WeatherGraphicProps) => props.isMargin ? '3rem' : '0' };
+  font-size: 10rem;
   font-weight: 300;
 
   @media ${device.tabletSmall} {
@@ -50,11 +50,15 @@ type WeatherIconTempWrapperSize = {
   small: boolean | undefined
 }
 
-export const WeatherInfoGraphic = (props: { src: string, temp: number, small?: boolean}) => {
+type WeatherGraphicProps = {
+  isMargin: boolean;
+}
+
+export const WeatherInfoGraphic = (props: { src: string, temp: number, small?: boolean, isMargin: boolean}) => {
   return(
     <WeatherIconTempWrapper small={props.small} >
-      <Temp>{`${props.temp}\u00b0C`}</Temp>
       <CustomIcon alt="weatherIcon" src={props.src}/>
+      <Temp isMargin={props.isMargin}>{`${props.temp}\u00b0`}</Temp>
     </WeatherIconTempWrapper>
   )
 };

@@ -42,13 +42,19 @@ export const getBasicTimeFormatFromTimestamp: Function = (
 	return `${formatTime(date.getHours())}:${formatTime(date.getMinutes())}`;
 };
 
-export const getFormattedDate: Function = (): string => {
-	const date = new Date();
+export const shiftByTimezoneOffset = (timestamp: number, timezoneOffset: number): number => {
+	const localTimeZoneOffset = new Date().getTimezoneOffset() * 60;
+	return localTimeZoneOffset + timestamp + timezoneOffset
+}
+
+export const getFormattedDate: Function = (timestamp: number, timezoneOffset: number): string => {
+	const timeStampShifted = shiftByTimezoneOffset(timestamp, timezoneOffset)
+	const date = new Date( timeStampShifted * 1000);
 	const dayInNumber = date
 		.toLocaleDateString('en-GB')
 		.split('/')
 		.slice(0, 1)[0];
-	return `${days[date.getDay()]} ${dayInNumber} ${months[date.getMonth()]}`;
+	return `${days[date.getDay()]} ${dayInNumber} ${months[date.getMonth()]} ${getBasicTimeFormatFromTimestamp(timeStampShifted)}`;
 };
 
 export const getDayFromTimeStamp: Function = (timeStamp: number) => {

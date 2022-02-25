@@ -71,7 +71,6 @@ export const HourlyForecastCard = ({ forecast }: Props): JSX.Element => {
 	const [iconWidth, setIconWidth] = useState<string>('0rem');
 
 	useEffect(() => {
-		console.log(windowsSize)
 		if(windowsSize.width <= 540){
 			setIconWidth('8rem')
 		}

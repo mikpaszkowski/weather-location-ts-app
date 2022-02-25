@@ -20,11 +20,13 @@ export const initialState: IForecast = {
 		temp: 0,
 		tempMax: 0,
 		tempMin: 0,
+		tempFeelsLike: 0,
 		sunrise: '',
 		sunset: '',
 		description: '',
 		icon: '',
 		windSpeed: 0,
+		windDeg: 0,
 		clouds: 0,
 	},
 	daily: [
