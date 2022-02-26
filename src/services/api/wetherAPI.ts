@@ -54,6 +54,7 @@ const getForecastByCoordinates: Function = async (
 		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely`
 	);
 	if (response.status === 200) {
+		console.log(response)
 		return {
 			hourly: formatHourlyForecastResponse(response.data.hourly, response.data.timezone_offset),
 			daily: formatDailyForecastResponse(response.data.daily, response.data.timezone_offset)
@@ -72,6 +73,7 @@ export interface IDailyFormattedForecastResponse {
 	moonset: string;
 	moonPhase: number;
 	temp: TempDailyType;
+	description: string;
 	feelsLike: FeelsLikeType;
 	pressure: number;
 	humidity: number;
@@ -93,7 +95,7 @@ export interface IDailyForecastResponse {
 	moonset: number;
 	moon_phase: number;
 	temp: TempDailyType;
-	feelsLike: FeelsLikeType;
+	feels_like: FeelsLikeType;
 	pressure: number;
 	humidity: number;
 	dew_point: number;

@@ -51,14 +51,15 @@ const formatDateOfDailyForecastResponse: Function = (
   timeZoneOffset: number
 ): IDailyFormattedForecastResponse => {
   return {
-    date: getDayFromTimeStamp(data.dt),
+    date: getDayFromTimeStamp(shiftByTimezoneOffset(data.dt, timeZoneOffset)),
     sunrise: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.sunrise, timeZoneOffset)),
     sunset: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.sunset, timeZoneOffset)),
     moonrise: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.moonrise, timeZoneOffset)),
     moonset: getBasicTimeFormatFromTimestamp(shiftByTimezoneOffset(data.moonset, timeZoneOffset)),
     moonPhase: Math.floor(data.moon_phase * 100),
+    description: data.weather[0].description.charAt(0).toUpperCase() + data.weather[0].description.slice(1),
     temp: formatTempData(data.temp),
-    feelsLike: data.feelsLike,
+    feelsLike: data.feels_like,
     pressure: data.pressure,
     humidity: data.humidity,
     dew_point: data.dew_point,

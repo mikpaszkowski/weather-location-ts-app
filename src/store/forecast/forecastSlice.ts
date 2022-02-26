@@ -35,6 +35,7 @@ export const initialState: IForecast = {
         moonrise: "0",
         moonset: "0",
         moonPhase: 0,
+        description: "",
         temp: {
           day: 0,
           min: 0,

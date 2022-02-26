@@ -2,16 +2,10 @@ import * as React from "react";
 import styled, { keyframes } from "styled-components";
 import { useAppSelector } from "../hooks/storeHooks";
 import { selectCurrentWeather } from "../store/forecast/forecastSlice";
-import { useDispatch } from "react-redux";
-import {
-  selectCurrWeatherDisplaySetting,
-  toggleWeatherDisplay
-} from "../store/weatherDisplay/weatherDisplaySettingSlice";
 import { EntryViewType } from "./WeatherResult";
 import { device } from "../styles/responsive";
 import { DetailItem } from "./DetailItem";
 import { WeatherInfoGraphic } from "./WeatherInfoGraphic";
-import { CustomIcon } from "../iconComponents/CustomIcon";
 
 const slideDown = keyframes`
   from {
@@ -77,13 +71,6 @@ const DateName = styled.span`
   }
 `;
 
-const Description = styled.div`
-  position: absolute;
-  bottom: 4.5rem;
-  left: 8rem;
-  font-size: 4rem;
-  font-weight: 300;
-`;
 
 const MainGeoWeatherInfo = styled.div`
   display: flex;
@@ -94,7 +81,7 @@ const MainGeoWeatherInfo = styled.div`
 export const Details = styled.div`
   display: flex;
   flex-direction: column;
-  align-self: self-start;
+  align-self: self-end;
   margin-top: 3rem;
   padding: 0 2rem;
   border: 1px #ffffffab solid;
@@ -112,13 +99,9 @@ const Container = styled.div`
   justify-content: stretch;
 `;
 
-const CustomSpan = styled.p`
+export const CustomSpan = styled.p`
   font-size: ${(props: CustomParagraphProps) => props.fontSize ? props.fontSize : "2rem"};
   text-align: ${(props: CustomParagraphProps) => props.textAlign ? props.textAlign : "right"};
-`;
-
-const DetailsWrapper = styled.div`
-
 `;
 
 export const DetailLine = styled.div`
@@ -139,9 +122,7 @@ type CustomParagraphProps = {
 
 
 const CurrentWeatherInfo = ({ entryView }: EntryViewType) => {
-  const dispatch = useDispatch();
   const currentWeather = useAppSelector(selectCurrentWeather);
-  const { displaySetting } = useAppSelector(selectCurrWeatherDisplaySetting);
   const { city, country, date, icon, temp } = currentWeather;
 
   return (

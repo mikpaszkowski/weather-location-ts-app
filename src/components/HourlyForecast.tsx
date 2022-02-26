@@ -18,7 +18,7 @@ const HourlyForecastWrapper = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-  margin: 4rem 0;
+  margin-top: 4rem;
   overflow-x: scroll;
   transition: 0.6s 0.3s ease-in-out;
   transform: translateX(0);
@@ -85,12 +85,6 @@ export const HourlyForecast = () => {
 
   return (
     <>
-      <HourlyForecastWrapper>
-        {hourlyForecast.map((forecast, index) => (
-          <HourlyForecastCard key={index} forecast={forecast} />
-        ))}
-
-      </HourlyForecastWrapper>
       <ChartWrapper>
         <LabelY>Temperature</LabelY>
         <LabelX>Time</LabelX>
@@ -106,6 +100,12 @@ export const HourlyForecast = () => {
           </LineChart>
         </ResponsiveContainer>
       </ChartWrapper>
+      <HourlyForecastWrapper>
+        {hourlyForecast.map((forecast, index) => (
+          <HourlyForecastCard key={index} forecast={forecast} />
+        ))}
+
+      </HourlyForecastWrapper>
     </>
   );
 };
