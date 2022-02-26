@@ -1,5 +1,6 @@
 import { CustomIcon } from "../iconComponents/CustomIcon";
 import styled from "styled-components";
+import { icons } from "react-icons";
 
 const DetailItemWrapper = styled.div`
   display: flex;
@@ -22,18 +23,19 @@ type DetailItemPropsType = {
   fontSize?: string
   wide?: boolean
   label?: string
+  iconSize?: string
 }
 
 type DetailItemWrapperProps = {
   isWide?: boolean
 }
 
-export const DetailItem = ({iconName, text, small, fontSize, label, wide}: DetailItemPropsType) => {
+export const DetailItem = ({iconName, text, small, fontSize, label, wide, iconSize}: DetailItemPropsType) => {
 
   return(
     <DetailItemWrapper isWide={wide}>
       <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-        <CustomIcon alt={iconName} src={iconName} width="6rem"/>
+        <CustomIcon alt={iconName} src={iconName} width={iconSize ? iconSize : "6rem"}/>
         <DetailText isWide={wide} style={fontSize ? {fontSize: fontSize} : (small ? {fontSize: "1.7rem"} : {})}>{text}</DetailText>
       </div>
       {

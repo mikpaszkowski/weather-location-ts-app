@@ -33,6 +33,11 @@ export interface ICoordinates {
 	long: number;
 }
 
+export interface IForecastResponse {
+	hourly: Array<IHourlyForecastResponse>
+	daily: Array<IDailyFormattedForecastResponse>;
+}
+
 export interface IHourlyForecastResponse {
 	icon: string;
 	hour: string;
@@ -40,16 +45,19 @@ export interface IHourlyForecastResponse {
 	precipitation: number;
 }
 
-const getHourlyForecastByCoordinates: Function = async (
+const getForecastByCoordinates: Function = async (
 	coordinates: ICoordinates,
 	units: string = 'metric',
 	lang: string = 'en'
-): Promise<Array<IHourlyForecastResponse>> => {
+): Promise<IForecastResponse> => {
 	const response = await axios.get(
-		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,daily`
+		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely`
 	);
 	if (response.status === 200) {
-		return formatHourlyForecastResponse(response.data.hourly, response.data.timezone_offset);
+		return {
+			hourly: formatHourlyForecastResponse(response.data.hourly, response.data.timezone_offset),
+			daily: formatDailyForecastResponse(response.data.daily, response.data.timezone_offset)
+		}
 	}
 	throw new Error(
 		`Hourly forecast search failure with status: ${response.status}`
@@ -121,21 +129,6 @@ export type WeatherDescType = {
 	icon: string;
 };
 
-const getDailyForecastByCoordinates: Function = async (
-	coordinates: ICoordinates,
-	units: string = 'metric',
-	lang: string = 'eng'
-): Promise<Array<IDailyFormattedForecastResponse>> => {
-	const response = await axios.get(
-		`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.long}&APPID=${process.env.REACT_APP_WEATHER_API_KEY}&units=${units}&lang=${lang}&exclude=current,minutely,hourly`
-	);
-	if (response.status === 200) {
-		return formatDailyForecastResponse(response.data.daily, response.data.timezone_offset);
-	}
-	throw new Error(
-		`Daily forecast search failure with status: ${response.status}`
-	);
-};
 
 const getAllTypeForecast: Function = async (
 	coordinates: ICoordinates,
@@ -143,12 +136,10 @@ const getAllTypeForecast: Function = async (
 ): Promise<IForecast> => {
 	try {
 		const current = await getCurrentWeatherByCityName(cityName);
-		const daily = await getDailyForecastByCoordinates(coordinates);
-		const hourly = await getHourlyForecastByCoordinates(coordinates);
+		const forecast = await getForecastByCoordinates(coordinates);
 		return {
 			current: current,
-			daily: daily,
-			hourly: hourly,
+			forecast: forecast,
 			loading: false,
 			searchError: false,
 		};
@@ -159,8 +150,7 @@ const getAllTypeForecast: Function = async (
 
 const weatherService = {
 	getCurrentWeatherByCityName,
-	getDailyForecastByCoordinates,
-	getHourlyForecastByCoordinates,
+	getForecastByCoordinates,
 	getAllTypeForecast,
 };
 

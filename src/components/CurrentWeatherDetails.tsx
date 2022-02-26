@@ -11,11 +11,12 @@ import { CartesianGrid, Label, Line, LineChart, ResponsiveContainer, Tooltip, XA
 import { getWindDirection } from "../utils/windFormatter";
 import { getMoonPhase, scaleMoonPhaseNumberToPercent } from "../utils/moonPhaseFormatter";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { TodayInfoItemType } from "./TodayForecast";
 
 const WeatherDetailsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   width: 100%;
 `;
@@ -34,11 +35,11 @@ const MoonPhaseDescriptionSpan = styled.span`
 
 const LeftSideWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
   position: relative;
-  width: 40rem;
-  height: 100%;
+  width: 100%;
 `;
 
 const ReversedDropdownIcon = styled(RiArrowDropDownLine)`
@@ -87,8 +88,57 @@ export const CurrentWeatherDetails = ({ data }: CurrentWeatherDetailsProps) => {
     }
   ];
 
+  const weatherDetailItems: TodayInfoItemType[] = [
+    {
+      iconName: "sunrise",
+      value: `${data.sunrise}`,
+      label: "Sunrise"
+    },
+    {
+      iconName: "sunset",
+      value: `${data.sunset}`,
+      label: "Sunset"
+    },
+    {
+      iconName: "moonrise",
+      value: `${data.moonrise}`,
+      label: "Moonrise"
+    },
+    {
+      iconName: "moonset",
+      value: `${data.moonset}`,
+      label: "Moonset"
+    },
+    {
+      iconName: "overcast",
+      value: ` %`,
+      label: "Cloudiness"
+    },
+    {
+      iconName: "uv-index",
+      value: `${data.uvi} %`,
+      label: "Index UV"
+    },
+    {
+      iconName: "barometer",
+      value: `${data.pressure} hPa`,
+      label: "Pressure"
+    },
+    {
+      iconName: "windsock",
+      value: `${data.wind_speed.toString()} m/s (${getWindDirection(data.wind_deg)})`,
+      label: "Wind"
+    },
+    {
+      iconName: "humidity",
+      value: `${data.humidity} %`,
+      label: "Humidity"
+    }
+  ]
+
+
   return (
-    <WeatherDetailsWrapper style={{ margin: "0 0 3rem 3rem" }}>
+    <WeatherDetailsWrapper style={{ margin: "0 0 3rem 0" }}>
       <ReversedDropdownIcon/>
       <LeftSideWrapper>
         <WeatherInfoGraphic src={icon} temp={data.temp.day} small isMargin={false}/>
@@ -100,40 +150,22 @@ export const CurrentWeatherDetails = ({ data }: CurrentWeatherDetailsProps) => {
               <Label position="insideBottom" stroke="#ffffff" fill="#ffffff" />
             </XAxis>
             <YAxis stroke="#ffffff">
-              <Label value="Temperature" angle={-90} position="insideLeft" stroke="#ffffff" fill="#ffffff"
-                     style={{ fontSize: "40px" }} />
+              {/*<Label value="Temperature" angle={-90} position="insideLeft" stroke="#ffffff" fill="#ffffff"*/}
+              {/*       style={{ fontSize: "40px" }} />*/}
             </YAxis>
             <Tooltip />
             <Line type="monotone" dataKey="temperature" stroke="#90f2bc" activeDot={{ r: 8 }} strokeWidth={5} />
           </LineChart>
         </ResponsiveContainer>
       </LeftSideWrapper>
-      <Details style={{ width: "50%" }}>
-        <DetailLine>
-          <DetailItem small iconName="sunrise" text={data.sunrise} />
-          <DetailItem small iconName="sunset" text={data.sunset} />
-        </DetailLine>
-        <DetailLine>
-          <DetailItem small iconName="moonrise" text={data.moonrise} />
-          <DetailItem small iconName="moonset" text={data.moonset} />
-        </DetailLine>
-        <DetailLine>
-          <div style={{ marginLeft: "1rem" }}>
-            <RaindropPercentage width="5em" percipitation={data.precipitation} loosely />
-          </div>
-          <DetailItem small iconName="barometer" text={`${data.pressure.toString()} hPa`} />
-        </DetailLine>
-        <DetailLine>
-          <DetailItem small iconName="overcast" text={`${data.clouds.toString()} %`} />
-          <DetailItem small iconName="windsock"
-                      text={`${getWindDirection(data.wind_deg)} ${data.wind_speed.toString()} m/s`} />
-        </DetailLine>
-        <DetailLine>
-          <MoonPhaseWrapper>
-            <CustomIcon alt="moonphase" src={moonIcon} />
-            <MoonPhaseDescriptionSpan>{moonphase.description} {scaleMoonPhaseNumberToPercent(data.moonPhase)}%</MoonPhaseDescriptionSpan>
-          </MoonPhaseWrapper>
-        </DetailLine>
+      <Details style={{width: "100%"}}>
+        {
+          weatherDetailItems.map(detailItem => (
+            <DetailLine>
+              <DetailItem label={detailItem.value} small iconName={detailItem.iconName} text={detailItem.label} wide fontSize="2rem"/>
+            </DetailLine>
+          ))
+        }
       </Details>
     </WeatherDetailsWrapper>
 

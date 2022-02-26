@@ -14,7 +14,7 @@ const DailyForecastCardWrapper = styled.div`
   justify-content: space-between;
   align-items: ${(props: DailyForecastCardState) => props.isOpen ? "flex-start" : "center"};
   font-size: 10px;
-  padding: ${(props: DailyForecastCardState) => props.isOpen ? "2rem 4rem" : "0 4rem"};
+  padding: ${(props: DailyForecastCardState) => props.isOpen ? "6rem 4rem 2rem 4rem" : "0 4rem"};
   margin: 1rem 0;
   border-radius: 2rem;
   width: 100%;

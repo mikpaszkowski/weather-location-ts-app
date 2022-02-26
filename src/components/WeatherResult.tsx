@@ -6,10 +6,7 @@ import { useAppSelector } from "../hooks/storeHooks";
 import { Loader } from "./Loader";
 import { selectSearchError } from "../store/forecast/forecastSlice";
 import { DailyForecast } from "./DailyForecast";
-import {
-	selectCurrWeatherDisplaySetting,
-	toggleWeatherDisplay
-} from "../store/weatherDisplay/weatherDisplaySettingSlice";
+import { selectCurrWeatherDisplaySetting } from "../store/weatherDisplay/weatherDisplaySettingSlice";
 import { selectIsLoading } from "../store/search/searchSlice";
 import { useDispatch } from "react-redux";
 import { ToggleWeatherButton } from "./ToggleWeatherButton";
@@ -24,10 +21,10 @@ type DisplaySettingMap = {
 }
 
 const displaySettingsMap: DisplaySettingMap = {
-  "hourly": <HourlyForecast/>,
-  "daily": <DailyForecast/>,
-  "today": <TodayForecast/>
-}
+  "hourly": <HourlyForecast />,
+  "daily": <DailyForecast />,
+  "today": <TodayForecast />
+};
 
 const WeatherResult = ({ entryView }: EntryViewType) => {
   const dispatch = useDispatch();

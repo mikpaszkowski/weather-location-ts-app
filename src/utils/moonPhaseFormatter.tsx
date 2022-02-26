@@ -45,7 +45,7 @@ export const getMoonPhase = (data: IDailyFormattedForecastResponse): MoonPhaseDe
   } else if (data.moonPhase > 75 && data.moonPhase < 100) {
     return {
       description: "Waining Crescent",
-      icon: "moon-waining-crescent"
+      icon: "moon-waning-crescent"
     }
   }
   return {

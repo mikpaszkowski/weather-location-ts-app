@@ -4,7 +4,7 @@ import { DetailLine, Details } from "./CurrentWeatherInfo";
 import { DetailItem } from "./DetailItem";
 import { getWindDirection } from "../utils/windFormatter";
 
-type TodayInfoItemType = {
+export type TodayInfoItemType = {
   iconName: string;
   value: string;
   label: string
