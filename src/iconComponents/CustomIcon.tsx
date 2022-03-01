@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const IMG = styled.img`
-  width: ${(props: IconProps) => (props.width ? props.width : '10rem')};
+  width: ${(props: IconProps) => (props.width ? props.width : '6em')};
 `
 
 interface IconProps {

@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { BiSearch } from "react-icons/bi";
+import { device } from "../styles/responsive";
 
 interface InputProps {
   placeholder: string;
@@ -85,8 +86,16 @@ const SearchBarInput = styled.input<InputProps>`
     will-change: initial;
   }
 
-  &:hover {
+  @media ${device.tablet}{
+    font-size: 2.3rem;
+    padding: 1rem 3rem 1rem 7rem;
   }
+
+  @media ${device.mobileLarge}{
+    font-size: 2rem;
+    padding: 1rem 3rem 1rem 6.5rem;
+  }
+  
 `;
 
 const SearchIcon = styled(BiSearch)`
@@ -96,6 +105,17 @@ const SearchIcon = styled(BiSearch)`
   left: 2.4rem;
   font-size: 3.5rem;
   color: #c5c5c5;
+
+  @media ${device.tablet}{
+    top: 1rem;
+    font-size: 3rem;
+  }
+
+
+  @media ${device.mobileLarge}{
+    font-size: 2.5rem;
+    
+  }
 `;
 
 export const SearchBar = ({

@@ -1,9 +1,11 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { HourlyForecastCard } from "./HourlyForecastCard";
 import { useAppSelector } from "../hooks/storeHooks";
 import { selectHourlyForecast } from "../store/forecast/forecastSlice";
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 const slideDown = keyframes`
   from {
@@ -72,9 +74,19 @@ const LabelX = styled.span`
   left: 50%
 `;
 
+type Interval = "preserveStart" | "preserveEnd" | "preserveStartEnd" | number;
+
 
 export const HourlyForecast = () => {
   const hourlyForecast = useAppSelector(selectHourlyForecast);
+  const [interval, setInterval] = useState<Interval>("preserveEnd");
+  const windowSize = useWindowSize();
+
+  useEffect(() => {
+    if (windowSize.width <= 660 && windowSize.width > 0) {
+      setInterval(10);
+    }
+  }, [windowSize]);
 
   const chartData: HourlyChartData[] = hourlyForecast.map(e => {
     return {
@@ -90,13 +102,10 @@ export const HourlyForecast = () => {
         <LabelX>Time</LabelX>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={chartData as any[]}>
-            <CartesianGrid strokeDasharray="3 3" strokeWidth={2} />
-            <XAxis dataKey="hour" stroke="#ffffff">
-            </XAxis>
-            <YAxis stroke="#ffffff">
-            </YAxis>
-            <Tooltip />
-            <Line type="monotone" dataKey="temperature" stroke="#90f2bc" activeDot={{ r: 8 }} strokeWidth={4} />
+            <CartesianGrid strokeDasharray="3 3" strokeWidth={1} />
+            <XAxis dataKey="hour" stroke="#ffffff" interval={interval} />
+            <YAxis stroke="#ffffff" />
+            <Line type="monotone" dataKey="temperature" stroke="#90f2bc" strokeWidth={3} dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </ChartWrapper>

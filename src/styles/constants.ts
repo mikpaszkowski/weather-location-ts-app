@@ -12,8 +12,8 @@ interface BreakPoints {
 export const breakPoints: BreakPoints = {
 	mobileSmall: '320px',
 	mobileMedium: '375px',
-	mobileLarge: '420px',
-	tabletSmall: '540px',
+	mobileLarge: '430px',
+	tabletSmall: '560px',
 	tablet: '768px',
 	tabletLarge: '1024px',
 	laptopSmall: '1280px',

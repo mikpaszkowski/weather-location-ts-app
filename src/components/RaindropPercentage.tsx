@@ -12,6 +12,19 @@ const RaindropPercentageWrapper = styled.div`
 	& > img {
 		width: 4rem;
 	}
+
+	@media ${device.tablet} {
+		
+		& > img {
+			width: 3rem;
+		}
+	}
+
+	@media ${device.mobileLarge} {
+		& > img {
+			width: 2rem;
+		}
+	}
 `;
 
 const Percipitation = styled.span`
@@ -25,6 +38,11 @@ const Percipitation = styled.span`
 	@media ${device.mobileLarge} {
 		font-size: 1.5rem;
 	}
+
+	@media ${device.mobileMedium} {
+		font-size: 1.2rem;
+	}
+	
 `;
 
 export type RaindropDataType = {

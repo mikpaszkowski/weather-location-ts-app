@@ -32,20 +32,24 @@ const DailyForecastCardWrapper = styled.div`
 
   @media ${device.tablet} {
     font-size: 8px;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
   }
   @media ${device.tabletSmall} {
     font-size: 7px;
     margin-left: 0;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     & > img {
       width: 4.5em;
     }
   }
   @media ${device.mobileLarge} {
     font-size: 6px;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     margin: 0.5rem 0;
+  }
+  
+  @media ${device.mobileMedium}{
+    padding: ${(props: DailyForecastCardState) => props.isOpen ? "1rem 1rem 2rem 1rem" : "0 1.5rem"}
   }
 `;
 
@@ -58,6 +62,10 @@ const InfoGraphic = styled.div`
 
 const Date = styled.p`
   font-size: 2.5em;
+  
+  @media ${device.mobileMedium} {
+    font-size: 2em;
+  }
 `;
 
 const DayAndNightWeatherImage = styled.div`
@@ -92,11 +100,24 @@ const DayAndNightWeatherImage = styled.div`
       width: 4em;
     }
   }
+
+  @media ${device.mobileLarge} {
+    font-size: 6px;
+    Fmargin-left: 0;
+
+    & > img {
+      width: 3em;
+    }
+  }
 `;
 
 const Temperature = styled.p`
   font-size: 2.5em;
   margin-right: 1.7rem;
+  
+  @media ${device.mobileMedium}{
+    font-size: 2em
+  }
 `;
 
 export const CustomDropDownIcon = styled(RiArrowDropDownLine)`
@@ -105,6 +126,15 @@ export const CustomDropDownIcon = styled(RiArrowDropDownLine)`
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
+
+  @media ${device.tablet} {
+    font-size: 2.5rem;
+  }
+
+  @media ${device.mobileMedium} {
+    font-size: 2rem;
+    right: .5rem;
+  }
 `;
 
 type DailyForecastCardState = {

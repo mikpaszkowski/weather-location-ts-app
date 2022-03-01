@@ -4,7 +4,7 @@ import { DetailLine, Details } from "./CurrentWeatherInfo";
 import { DetailItem } from "./DetailItem";
 import { getWindDirection } from "../utils/windFormatter";
 
-export type TodayInfoItemType = {
+export type DetailWeatherInfoType = {
   iconName: string;
   value: string;
   label: string
@@ -13,7 +13,7 @@ export type TodayInfoItemType = {
 export const TodayForecast = () => {
   const currentWeather = useAppSelector(selectCurrentWeather);
 
-  const todayInfoItems: TodayInfoItemType[] = [
+  const todayInfoItems: DetailWeatherInfoType[] = [
     {
       iconName: "overcast",
       value: `${currentWeather.clouds} %`,

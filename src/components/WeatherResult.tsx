@@ -8,7 +8,6 @@ import { selectSearchError } from "../store/forecast/forecastSlice";
 import { DailyForecast } from "./DailyForecast";
 import { selectCurrWeatherDisplaySetting } from "../store/weatherDisplay/weatherDisplaySettingSlice";
 import { selectIsLoading } from "../store/search/searchSlice";
-import { useDispatch } from "react-redux";
 import { ToggleWeatherButton } from "./ToggleWeatherButton";
 import { TodayForecast } from "./TodayForecast";
 
@@ -27,7 +26,6 @@ const displaySettingsMap: DisplaySettingMap = {
 };
 
 const WeatherResult = ({ entryView }: EntryViewType) => {
-  const dispatch = useDispatch();
   const isLoading = useAppSelector(selectIsLoading);
   const errorOccured = useAppSelector(selectSearchError);
   const { displaySetting } = useAppSelector(selectCurrWeatherDisplaySetting);

@@ -1,46 +1,74 @@
 import { CustomIcon } from "../iconComponents/CustomIcon";
 import styled from "styled-components";
+import { device } from "../styles/responsive";
 
 const DetailItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 1rem;
+  font-size: 1em;
+  margin: 0;
   width: ${(props: DetailItemWrapperProps) => props.isWide ? "100%" : "auto"}
 `;
 
 const DetailText = styled.span`
-  font-size: 2rem;
-  margin-left: ${(props: DetailItemWrapperProps) => props.isWide ? "2.3rem" : "0"}
+  margin-left: ${(props: DetailItemWrapperProps) => props.isWide ? "2.7rem" : "0"};
+  font-size: ${({ fontSize }: DetailItemWrapperProps) => fontSize ? `${fontSize}em` : "2.5em"};
+
+  @media ${device.tablet} {
+    font-size: ${({ fontSize }: DetailItemWrapperProps) => fontSize ? `${0.8 * fontSize}em` : "2em"};
+  };
+
+  @media ${device.tabletSmall} {
+    margin-left: 0;
+  };
+
+
+  @media ${device.mobileLarge} {
+    font-size: ${({ fontSize }: DetailItemWrapperProps) => fontSize ? `${0.7 * fontSize}em` : "1.7em"};
+  }
+`;
+
+const ItemIconWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1em;
+
+  @media ${device.mobileLarge} {
+    & > img {
+      width: 5rem;
+    }
+  }
 `;
 
 type DetailItemPropsType = {
   iconName: string,
   text: string,
-  small?: boolean
-  fontSize?: string
+  fontSize?: number
   wide?: boolean
   label?: string
   iconSize?: string
+  noMargin?: boolean
 }
 
 type DetailItemWrapperProps = {
-  isWide?: boolean
+  isWide?: boolean;
+  fontSize?: number;
+  noMargin?: boolean;
 }
 
-export const DetailItem = ({ iconName, text, small, fontSize, label, wide, iconSize }: DetailItemPropsType) => {
+export const DetailItem = ({ iconName, text, label, wide, iconSize, noMargin }: DetailItemPropsType) => {
 
   return (
-    <DetailItemWrapper isWide={wide}>
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-        <CustomIcon alt={iconName} src={iconName} width={iconSize ? iconSize : "6rem"} />
-        <DetailText isWide={wide}
-                    style={fontSize ? { fontSize: fontSize } : (small ? { fontSize: "1.7rem" } : {})}>{text}</DetailText>
-      </div>
+    <DetailItemWrapper noMargin={noMargin} isWide={wide}>
+      <ItemIconWrapper>
+        <CustomIcon alt={iconName} src={iconName} width={iconSize} />
+        <DetailText isWide={wide}>{text}</DetailText>
+      </ItemIconWrapper>
       {
-        (label) ? <DetailText
-          style={fontSize ? { fontSize: fontSize } : (small ? { fontSize: "1.7rem" } : {})}>{label}</DetailText> : null
+        (label) ? <DetailText>{label}</DetailText> : null
       }
     </DetailItemWrapper>
   );

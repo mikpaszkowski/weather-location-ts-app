@@ -8,41 +8,43 @@ const WeatherIconTempWrapper = styled.div`
   align-items: flex-end;
   flex-wrap: wrap;
   justify-content: flex-start;
+  font-size: 1em;
   width: 100%;
 
   & > img {
-    width: ${(props: WeatherIconTempWrapperSize) => props.small ? "14rem" : "20rem"};
+    width: ${(props: WeatherIconTempWrapperSize) => props.small ? "14em" : "17em"};
   }
 
-  @media ${device.tabletSmall} {
+  @media ${device.tablet} {
     justify-content: flex-start;
 
     & > img {
-      width: ${(props: WeatherIconTempWrapperSize) => props.small ? "9rem" : "13rem"};
+      width: ${(props: WeatherIconTempWrapperSize) => props.small ? "9em" : "13em"};
     }
   }
 
   @media ${device.mobileLarge} {
-    justify-content: center;
-
+    
     & > img {
-      width: ${(props: WeatherIconTempWrapperSize) => props.small ? "7rem" : "11rem"};
+      width: ${(props: WeatherIconTempWrapperSize) => props.small ? "7em" : "6em"};
     }
   }
 `;
 
-const Temp = styled.div`
+const Temp = styled.span`
   display: inline;
   margin-bottom: ${(props: WeatherGraphicProps) => props.isMargin ? '3rem' : '0' };
-  font-size: 10rem;
+  font-size: 9em;
   font-weight: 300;
 
-  @media ${device.tabletSmall} {
-    font-size: 5rem;
+  @media ${device.tablet} {
+    font-size: 8em;
+    margin-bottom: 2rem
   }
 
   @media ${device.mobileLarge} {
-    font-size: 3rem;
+    font-size: 5em;
+    margin-bottom: 1rem;
   }
 `;
 

@@ -34,13 +34,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: "Lato", "sans-serif";
-
-    @media ${device.tablet} {
-      font-size: 9px;
-    }
-    @media ${device.mobileLarge} {
-      font-size: 8px;
-    }
   }
 `;
 
@@ -54,10 +47,10 @@ const AppWrapper = styled.div`
   position: relative;
 
   @media ${device.tabletLarge} {
-    padding: 0 3rem;
+    padding: 0 5rem;
   }
 
-  @media ${device.mobileLarge} {
+  @media ${device.tabletSmall} {
     padding: 0 1rem;
   }
 `;

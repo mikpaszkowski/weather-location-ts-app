@@ -2,11 +2,10 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   IWeatherDisplaySetting,
-  selectCurrWeatherDisplaySetting,
   toggleWeatherDisplay
 } from "../store/weatherDisplay/weatherDisplaySettingSlice";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../hooks/storeHooks";
+import { device } from "../styles/responsive";
 
 const ToggleButton = styled.div`
   display: flex;
@@ -15,14 +14,13 @@ const ToggleButton = styled.div`
   align-self: flex-start;
   bottom: 1rem;
   left: 4rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   z-index: 2;
   background-color: transparent;
   border: 1px solid #ffffff;
   border-radius: 2rem;
   letter-spacing: 0.1rem;
   cursor: pointer;
-  
 `;
 
 const DisplayMode = styled.button`
@@ -35,9 +33,9 @@ const DisplayMode = styled.button`
   background-color: transparent;
   transition: background-color 0.2s ease-in-out;
   cursor: pointer;
-  border: 1px solid #ffffff;  
-  
-  :focus{
+  border: 1px solid #ffffff;
+
+  :focus {
     background-color: #ffffff60;
   }
 
@@ -50,11 +48,12 @@ const DisplayMode = styled.button`
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
   }
-`;
 
-interface ToggleButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
+  @media ${device.mobileLarge} {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+  }
+`;
 
 export const ToggleWeatherButton = () => {
   const dispatch = useDispatch();
@@ -88,7 +87,7 @@ export const ToggleWeatherButton = () => {
       {settings.map(setting => (
         <DisplayMode onClick={(e) => {
           toggleWeatherSetting(setting.mode);
-          e.currentTarget.focus()
+          e.currentTarget.focus();
         }}>{setting.label}</DisplayMode>
       ))}
     </ToggleButton>
