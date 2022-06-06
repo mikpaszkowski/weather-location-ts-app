@@ -2,6 +2,8 @@
 
 🔗https://moonsoon-weather-app.netlify.app/home
 
+Weather app with a nice-looking UI displaying current weather at the given city. Project created in a Progressive Web Application design. Redux Toolkit with Thunks used. 
+
 ## :wrench: Tech-stack
 * React (React Hooks, React Router) :atom_symbol:
 * Redux Toolkit + Thunks :trident:
