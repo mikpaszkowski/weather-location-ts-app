@@ -7,7 +7,7 @@ import { device } from "../styles/responsive";
 import { DetailItem } from "./DetailItem";
 import { WeatherInfoGraphic } from "./WeatherInfoGraphic";
 
-const slideDown = keyframes`
+export const slideIn = keyframes`
   from {
     transform: translateX(-5rem);
     opacity: 0;
@@ -31,7 +31,7 @@ const CurrentWeatherResultWrapper = styled.div`
   border-radius: 3rem;
   transition: 0.6s 0.3s ease-in-out;
   transform: translateX(0);
-  animation-name: ${slideDown};
+  animation-name: ${slideIn};
   animation-duration: 0.5s;
   animation-delay: ${(props: EntryViewType) =>
           props.entryView ? "0.4s" : "0s"};

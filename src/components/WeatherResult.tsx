@@ -1,5 +1,5 @@
 import * as React from "react";
-import CurrentWeatherInfo from "./CurrentWeatherInfo";
+import CurrentWeatherInfo, { slideIn } from "./CurrentWeatherInfo";
 import { HourlyForecast } from "./HourlyForecast";
 import styled from "styled-components";
 import { useAppSelector } from "../hooks/storeHooks";
@@ -11,7 +11,8 @@ import { selectIsLoading } from "../store/search/searchSlice";
 import { ToggleWeatherButton } from "./ToggleWeatherButton";
 import { TodayForecast } from "./TodayForecast";
 
-const WeatherResultWrapper = styled.div``;
+const WeatherResultWrapper = styled.div`ó
+`;
 
 export type EntryViewType = { entryView: boolean };
 

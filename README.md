@@ -1,3 +1,33 @@
+# :shopping_cart: Progressive Web App - Weather App :cloud:
+
+🔗https://moonsoon-weather-app.netlify.app/home
+
+## :wrench: Tech-stack
+* React (React Hooks, React Router) :atom_symbol:
+* Redux Toolkit + Thunks :trident:
+* Styled-components + SCSS :nail_care:
+*
+
+## :clipboard: Main features :rocket:
+* app is created in PWA (Progressive Web App) design, it can be added to home screen of mobiles phones (iOS/Android) or on desktop (Linux/Windows)
+* responsive for all possible resolutions
+* creating reusable React  components with React hooks and Redux :arrows_counterclockwise:
+* thoughtful project architecture to improve maintainability, refactoring and understanding of the written code :thinking:
+* Styling with a styled-components - creating reusable styles, themes applied to the components
+* (in progress) Payments provided by the Stripe.
+
+## ⏲️Things to be done
+* Add weather map based on the location of user ❔
+* Air quality information ❔
+* Modification of UI - slide-in menu ❔
+* Possibility of saving some favourites locations ❔
+
+# Examples of usage on different devices
+
+##Android
+
+<img src="img/android_home_page.jpg" width="230" height="530"/> <img src="img/android_search.jpg" width="230" height="530"/> <img src="img/android_details.jpg" width="230" height="530"/> <img src="img/android_daily.jpg" width="230" height="530"/>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
