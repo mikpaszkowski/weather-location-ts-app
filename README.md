@@ -24,9 +24,13 @@
 
 # Examples of usage on different devices
 
-##Android
+## Android
 
 <img src="img/android_home_page.jpg" width="230" height="530"/> <img src="img/android_search.jpg" width="230" height="530"/> <img src="img/android_details.jpg" width="230" height="530"/> <img src="img/android_daily.jpg" width="230" height="530"/>
+
+## Desktop - Windows
+
+<img src="img/desktop_search.png" width="1080" height="auto"/> <img src="img/desktop_daily.png" width="1080" height="auto"/> <img src="img/desktop_details.png" width="1080" height="auto"/>
 
 # Getting Started with Create React App
 
